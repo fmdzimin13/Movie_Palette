@@ -1,0 +1,96 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  {% bootstrap_css %}
+  <title>Document</title>
+  <style>
+    #app {
+      font-family: 'Jeju Myeongjo', serif;
+    }
+
+    .box {
+      width: 100%;;
+      margin: 0px auto;
+      transition: transform 1.2s ease 0s;
+      transform: translateX(0px) translateY(300px);
+    }
+
+    .color-chip {
+      width: 154px;
+      height: 200px;
+      cursor: pointer;
+      top: 0px;
+      pointer-events: auto;
+      opacity: 1;
+    }
+
+    .color-text {
+      font-size: calc(0.438vw + 16.6px);
+      color: rgb(255, 255, 255);
+      font-weight: normal;
+      max-width: 19.875px;
+      padding: 20px;
+      transition: opacity 0.6s ease 0s;
+      opacity: 0;
+    }
+
+    .color-chip:hover .color-text {
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="mt-5 row">
+        <h1 style="font-size: 400%;">Movie Palette</h1>
+        <div class="col-2">
+          {% include "movies/nav.html" %}
+        </div>
+      </div>
+      <!-- 영화 컬러칩-->
+      <div class="box d-flex">
+        <div class="color-chip" style="background-color: rosybrown;">
+          <div class="color-text">dkssud</div>
+        </div>
+        <div class="color-chip" style="background-color: darksalmon;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: sandybrown;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: lightcoral;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: navajowhite;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: burlywood;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: lightpink;">
+          dkssud
+        </div>
+        <div class="color-chip" style="background-color: darkorange;">
+          dkssud
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  
+  {% bootstrap_javascript %}
+</body>
+</html>
+
+
+
+

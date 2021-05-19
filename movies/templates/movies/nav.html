@@ -1,0 +1,57 @@
+<nav class="navbar navbar-light">
+  <div class="">
+    <button class="navbar-toggler mt-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-4">
+        <li class="nav-item">
+          <div class="mb-2">
+            <div class="px-2 pt-2" style="background-color: #BDBDBD;">
+              <!-- 로그인 했을 경우 -->
+              {% if request.user.is_authenticated %}
+                <h4 style="color: white;">환영합니다</h4>
+                <a class="nav-link" href="#">
+                  <h5 style="color: white;">LOGOUT</h5>
+                </a>
+              </div>
+              <div class="px-2 pt-2" style="background-color: #8C8C8C;">
+                <a class="nav-link" href="#">
+                  <h5 style="color: white;">MY PAGE</h5>
+                </a>
+              </div>
+              <!-- 로그인하지 않았을 경우 -->
+              {% else %} 
+              <div>
+                <a class="nav-link" href="#">
+                  <h4 style="color: white;">LOGIN</h4>
+                </a>
+                <a class="nav-link" href="#">
+                  <h4 style="color: white;">SIGNUP</h4>
+                </a>
+              </div>
+              {% endif %}
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">
+            <h4 class="px-2">HOME</h4>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <h4 class="px-2">ABOUT</h4>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <h4 class="px-2">RECOMMEND</h4>
+          </a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</nav>
