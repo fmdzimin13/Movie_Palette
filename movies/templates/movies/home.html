@@ -14,13 +14,6 @@
       font-family: 'Jeju Myeongjo', serif;
     }
 
-    .box {
-      width: 100%;;
-      margin: 0px auto;
-      transition: transform 1.2s ease 0s;
-      transform: translateX(0px) translateY(300px);
-    }
-
     .color-chip {
       width: 154px;
       height: 200px;
@@ -31,17 +24,39 @@
     }
 
     .color-text {
-      font-size: calc(0.438vw + 16.6px);
-      color: rgb(255, 255, 255);
+      font-size: calc(1vw + 9px);
+      color: white;
       font-weight: normal;
-      max-width: 19.875px;
-      padding: 20px;
+      max-width: 20px;
+      padding: 10px;
       transition: opacity 0.6s ease 0s;
       opacity: 0;
     }
 
     .color-chip:hover .color-text {
       opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      transform: translateX(0px) translateY(220px);
+    }
+
+    .large {
+      /* position: absolute; */
+      cursor: pointer;
+      top: 0px;
+      left: 0px;
+      transition: transform 1.3s ease 1s;
+      transform: scaleY(5);
+    }
+
+    .chip-box {
+      position:sticky ;
+      width: 100%;;
+      margin: 0px auto;
+      transition: transform 1.2s ease 0s;
+      transform: translateX(0px) translateY(200px);
     }
 
   </style>
@@ -51,45 +66,59 @@
     <div class="container">
       <div class="mt-5 row">
         <h1 style="font-size: 400%;">Movie Palette</h1>
-        <div class="col-2">
+        <div class="col-5">
           {% include "movies/nav.html" %}
         </div>
       </div>
       <!-- 영화 컬러칩-->
-      <div class="box d-flex">
-        <div class="color-chip" style="background-color: rosybrown;">
-          <div class="color-text">dkssud</div>
+      <div class="chip-box d-flex">
+        <div id="red" class="color-chip" style="background-color: red;">
+          <div class="color-text">Romance</div>
         </div>
-        <div class="color-chip" style="background-color: darksalmon;">
-          dkssud
+        <div class="color-chip" style="background-color: orange;">
+          <div class="color-text">Comedy</div>
         </div>
-        <div class="color-chip" style="background-color: sandybrown;">
-          dkssud
+        <div class="color-chip" style="background-color: yellow;">
+          <div class="color-text">Animation</div>
         </div>
-        <div class="color-chip" style="background-color: lightcoral;">
-          dkssud
+        <div class="color-chip" style="background-color: greenyellow;">
+          <div class="color-text">Family</div>
         </div>
-        <div class="color-chip" style="background-color: navajowhite;">
-          dkssud
+        <div class="color-chip" style="background-color: green;">
+          <div class="color-text">Drama</div>
         </div>
-        <div class="color-chip" style="background-color: burlywood;">
-          dkssud
+        <div class="color-chip" style="background-color: #005666;">
+          <div class="color-text">Romance</div>
         </div>
-        <div class="color-chip" style="background-color: lightpink;">
-          dkssud
+        <div class="color-chip" style="background-color: blue;">
+          <div class="color-text">Fantasy</div>
         </div>
-        <div class="color-chip" style="background-color: darkorange;">
-          dkssud
+        <div class="color-chip" style="background-color: darkblue;">
+          <div class="color-text">Thriller</div>
+        </div>
+        <div class="color-chip" style="background-color: purple;">
+          <div class="color-text">Noir</div>
+        </div>
+        <div class="color-chip" style="background-color: #9B0143;">
+          <div class="color-text">Action</div>
         </div>
       </div>
-
+      <footer class="align-content-end">
+        <p class="mb-3">chaeeun & jimin</p>
+      </footer>
     </div>
-
   </div>
-  
   {% bootstrap_javascript %}
 </body>
 </html>
+
+<script>
+  const red = document.querySelector('#red')
+  red.addEventListener('click', function (event) {
+    event.target.classList.toggle('large')
+  })
+
+</script>
 
 
 
