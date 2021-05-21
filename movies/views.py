@@ -10,3 +10,6 @@ def home(request):
     # }
     # return render(request, 'movies/index.html', context)
     return render(request, 'movies/home.html')
+
+def red(request):
+    return render(request, 'movies/red.html')
