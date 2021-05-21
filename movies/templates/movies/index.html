@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  {% for movie in movies %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+    <img src="{{ movie.backdrop_path }}" alt="">
+    {% comment %} {% with "https://image.tmdb.org/t/p/w500"|add:movie.poster_path as poster_path  %}
+      {{ poster_path }}
+    {% endwith %} {% endcomment %}
+    {% comment %} 'https://image.tmdb.org/t/p/w500' + {{ movie.poster_path }} {% endcomment %}
+    {% comment %} {{ movie.poster_path }} {% endcomment %}
+    {% comment %} {{ movie.backdrop_path }} {% endcomment %}
+    {{ movie.custom_genre }}
+  {% endfor %}
+</body>
+</html>
