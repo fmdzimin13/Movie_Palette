@@ -14,6 +14,11 @@
       font-family: 'Jeju Myeongjo', serif;
     }
 
+    .container {
+      height: 1000px;
+      overflow: hidden;
+    }
+    
     .color-chip {
       width: 154px;
       height: 200px;
@@ -43,12 +48,19 @@
     }
 
     .large {
-      /* position: absolute; */
-      cursor: pointer;
       top: 0px;
       left: 0px;
       transition: transform 1.3s ease 1s;
-      transform: scaleY(5);
+      transform: scale(20, 5);
+      pointer-events: none;
+    }
+
+    .cursor-none {
+      pointer-events: none;
+    }
+
+    .large .color-text {
+      opacity: 0;
     }
 
     .chip-box {
@@ -59,6 +71,20 @@
       transform: translateX(0px) translateY(200px);
     }
 
+    .movieList {
+      position: absolute;
+      top: 200px;
+      left: 180px;
+      width: 800px;
+      height: 100%;
+      overflow: auto;
+    }
+
+    #x-button {
+      position: absolute;
+      top: 30px;
+      font-size: 200%;
+    }
   </style>
 </head>
 <body>
@@ -71,54 +97,92 @@
         </div>
       </div>
       <!-- 영화 컬러칩-->
+      
       <div class="chip-box d-flex">
-        <div id="red" class="color-chip" style="background-color: red;">
-          <div class="color-text">Romance</div>
+        <div @click="largeColor" id="red" class="color-chip" style="background-color: red;">
+          <div v-if="seen" class="color-text">Romance</div>
         </div>
         <div class="color-chip" style="background-color: orange;">
-          <div class="color-text">Comedy</div>
+          <div v-if="seen" class="color-text">Comedy</div>
         </div>
         <div class="color-chip" style="background-color: yellow;">
-          <div class="color-text">Animation</div>
+          <div v-if="seen" class="color-text">Animation</div>
         </div>
         <div class="color-chip" style="background-color: greenyellow;">
-          <div class="color-text">Family</div>
+          <div v-if="seen" class="color-text">Family</div>
         </div>
         <div class="color-chip" style="background-color: green;">
-          <div class="color-text">Drama</div>
+          <div v-if="seen" class="color-text">Drama</div>
         </div>
         <div class="color-chip" style="background-color: #005666;">
-          <div class="color-text">Romance</div>
+          <div v-if="seen" class="color-text">Romance</div>
         </div>
         <div class="color-chip" style="background-color: blue;">
-          <div class="color-text">Fantasy</div>
+          <div v-if="seen" class="color-text">Fantasy</div>
         </div>
         <div class="color-chip" style="background-color: darkblue;">
-          <div class="color-text">Thriller</div>
+          <div v-if="seen" class="color-text">Thriller</div>
         </div>
         <div class="color-chip" style="background-color: purple;">
-          <div class="color-text">Noir</div>
+          <div v-if="seen" class="color-text">Noir</div>
         </div>
         <div class="color-chip" style="background-color: #9B0143;">
-          <div class="color-text">Action</div>
+          <div v-if="seen" class="color-text">Action</div>
         </div>
       </div>
-      <footer class="align-content-end">
+      <!-- 영화 리스트-->
+      <div class="mt-5 row">
+        <button @click="closeColor" v-if="!seen" id="x-button" type="button" class="btn-close offset-10 col-1"></button>
+        <div id="redMovie" class="movieList" v-if="redSeen">
+          <p>영화 정보 리스트로 돌면서 출력하기</p>
+        </div>
+      </div>
+      <!-- footer -->
+      <footer v-if="seen" class="align-content-end">
         <p class="mb-3">chaeeun & jimin</p>
       </footer>
     </div>
   </div>
+  
+
   {% bootstrap_javascript %}
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+        el: '#app', 
+        data: {
+          seen: true,
+          redSeen: false, 
+        },
+        methods: {
+          largeColor: function (event) {
+            const toggleBtn = document.querySelector('#toggleBtn')
+            const navContent = document.querySelector('#navbarToggleExternalContent')
+            if (navContent.classList.length === 3) {
+              toggleBtn.click()
+            }
+            event.target.classList.add('large')
+            setTimeout(this.seen = false, 3000)
+            this.redSeen = true
+            
+            const chipColors = document.querySelectorAll('.color-chip')
+            chipColors.classList.add('cursor-none')
+          },
+          closeColor: function () {
+            this.redSeen = false
+            this.seen = true
+            const red = document.querySelector('#red')
+            red.classList.remove('large')
+            const chipColors = document.querySelectorAll('.color-chip')
+            chipColors.classList.remove('cursor-none')
+          }
+        }
+      })
+
+  </script>
+  
 </body>
 </html>
-
-<script>
-  const red = document.querySelector('#red')
-  red.addEventListener('click', function (event) {
-    event.target.classList.toggle('large')
-  })
-
-</script>
 
 
 
