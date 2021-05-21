@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 # class Genre(models.Model):
@@ -16,6 +17,7 @@ from django.db import models
 
 
 class Movie(models.Model):
+    like = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name='like_movies')
     adult = models.BooleanField()
     title = models.CharField(max_length=100)
     overview = models.TextField()

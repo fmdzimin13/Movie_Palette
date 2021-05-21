@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>{{ person.username }}님의 프로필</h1>
+    <br>
+    <div>
+      {% with followings=person.followings.all followers=person.followers.all %}
+          <p id="follow-count" class="lead">
+            팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}
+          </p>
+          <!-- 팔로우 버튼 -->
+          {% if request.user != person %}
+            <form id="follow-form" data-user-id="{{ person.pk }}">
+              {% csrf_token %}
+              {% if request.user in followers %}
+                <button class="btn-secondary btn-lg" role="button">Unfollow</button>
+              {% else %}
+                <button class="btn-primary btn-lg" role="button">Follow</button>
+              {% endif %}
+            </form>
+          {% endif %}
+        {% endwith %}
+    </div>
+<hr>
+
+
+<ul class="list-group">
+    <li class="list-group-item list-group-item-dark"><h4>{{ person.username }}님의 게시글</h4></li>
+    {% for review in person.review_set.all %}
+        <li class="list-group-item">
+            <div>{{ review.title }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+<ul class="list-group mt-4">
+    <li class="list-group-item list-group-item-dark"><h4>{{ person.username }}님의 댓글</h4></li>
+    {% for comment in person.comment_set.all %}
+        <li class="list-group-item">
+            <div>{{ comment.content }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+<ul class="list-group mt-4">
+    <li class="list-group-item list-group-item-dark"><h4>{{ person.username }}님의 좋아요한 리뷰</h4></li>
+    {% for review in person.like_reviews.all %}
+        <li class="list-group-item">
+            <div>{{ review.title }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+<ul class="list-group mt-4">
+    <li class="list-group-item list-group-item-dark"><h4>{{ person.username }}님의 좋아요한 영화</h4></li>
+    {% for movie in person.like_movies.all %}
+        <li class="list-group-item">
+            <div>{{ movie.title }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const form = document.querySelector('#follow-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    const userId = event.target.dataset.userId
+
+    axios.post(`http://127.0.0.1:8000/accounts/follow/${userId}/`, {}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then(function (response) {
+      const { followed, followersCount, followingsCount } = response.data
+
+      const followStatus = document.querySelector('#follow-count')
+      const followBtn = document.querySelector('#follow-form > button')
+
+      followStatus.innerText = `팔로잉: ${followingsCount} / 팔로워: ${followersCount}`
+      followBtn.innerText = followed ? '팔로우 취소' : '팔로우'
+
+    })
+    .catch(function (error) {
+      if (error.response.status === 401) {
+        window.location.href = 'http://127.0.0.1:8000/accounts/login/'
+      }
+    })
+  })
+</script>
+{% endblock %}
