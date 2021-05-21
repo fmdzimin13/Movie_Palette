@@ -10,12 +10,17 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
   <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
   {% bootstrap_css %}
+  <style>
+    .container {
+      margin-top: 3rem;
+    }
+  </style>
   <title>Document</title>
 </head>
 <body>
   <div style="font-family: 'Jeju Myeongjo', serif;">
     <div class="container">
-      {% block content %}
+    {% block content %}
       {% endblock %}
     </div>
   </div>
