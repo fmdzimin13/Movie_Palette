@@ -1,0 +1,70 @@
+{% if custom_genre == 1 %}
+  {% for movie in movies_red %}
+    {{ movie.title }}
+    <a href="{% url 'movies:movie_detail' movie.pk %}">detail</a>
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 2 %}
+  {% for movie in movies_orange %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 3 %}
+  {% for movie in movies_yellow %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 4 %}
+  {% for movie in movies_greenyellow %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 5 %}
+  {% for movie in movies_green %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 6 %}
+  {% for movie in movies_bluegreen %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 7 %}
+  {% for movie in movies_blue %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 8 %}
+  {% for movie in movies_darkblue %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 9 %}
+  {% for movie in movies_purple %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}
+
+{% if custom_genre == 10 %}
+  {% for movie in movies_redpurple %}
+    {{ movie.title }}
+    <img src="{{ movie.poster_path }}" alt="">
+  {% endfor %}
+{% endif %}

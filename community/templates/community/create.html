@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="btn-group mt-2">
+      <input class="btn btn-dark" type="submit" value="Submit">
+      <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>
+    </div>
+  </form>
+{% endblock %}

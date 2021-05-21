@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>로그인</h2><br>
+  <h5>"환영합니다"</h5>
+  <hr>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex">
+      <button type="submit" class="btn btn-secondary btn-lg mt-2" style="height: 50px;">로그인</button>
+    </div>
+  </form>
+{% endblock %}

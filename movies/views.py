@@ -37,16 +37,16 @@ def get_movie_data(request, custom_genre):
             ).save()
 
 
-genre_1 = [18]
-genre_2 = [14, 878]
+genre_1 = [10749]
+genre_2 = [10751, 35]
 genre_3 = [16]
-genre_4 = [28, 12]
-genre_5 = [27, 9648, 53]
-genre_6 = [80, 10752]
-genre_7 = [10749]
-genre_8 = [37, 36]
-genre_9 = [99]
-genre_10 = [10751, 35]
+genre_4 = [18]
+genre_5 = [99]
+genre_6 = [14, 878]
+genre_7 = [28, 12]
+genre_8 = [27, 9648, 53]
+genre_9 = [80, 10752]
+genre_10 = [37, 36]
 genre_lookup = {1: genre_1, 2: genre_2, 3: genre_3, 4: genre_4, 5: genre_5, 6: genre_6, 7: genre_8, 8: genre_9, 10: genre_10}
 
 
@@ -65,6 +65,52 @@ def home(request):
     context = {
         'movies': movies,
     }
-    return render(request, 'movies/index2.html', context)
+    return render(request, 'movies/index.html', context)
     # return render(request, 'movies/home.html')
 
+
+
+def index(request):
+    movies = Movie.objects.all()
+    context = {
+        'movies': movies,
+    }
+    return render(request, 'movies/index.html', context)
+
+
+def movie_list(request, custom_genre):
+    movies_red = Movie.objects.filter(custom_genre=1)
+    movies_orange = Movie.objects.filter(custom_genre=2)
+    movies_yellow = Movie.objects.filter(custom_genre=3)
+    movies_greenyellow = Movie.objects.filter(custom_genre=4)
+    movies_green = Movie.objects.filter(custom_genre=5)
+    movies_bluegreen = Movie.objects.filter(custom_genre=6)
+    movies_blue = Movie.objects.filter(custom_genre=7)
+    movies_darkblue = Movie.objects.filter(custom_genre=8)
+    movies_purple = Movie.objects.filter(custom_genre=9)
+    movies_redpurple = Movie.objects.filter(custom_genre=10)
+
+    context = {
+        'movies_red': movies_red,
+        'movies_orange': movies_orange,
+        'movies_yellow': movies_yellow,
+        'movies_greenyellow': movies_greenyellow,
+        'movies_green': movies_green,
+        'movies_bluegreen': movies_bluegreen,
+        'movies_blue': movies_blue,
+        'movies_darkblue': movies_darkblue,
+        'movies_purple': movies_purple,
+        'movies_redpurple': movies_redpurple,
+        'custom_genre': custom_genre,
+    }
+
+    return render(request, 'movies/movie_list.html', context)
+
+
+@require_GET
+def movie_detail(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    context = {
+        'movie': movie,
+    }
+    return render(request, 'movies/movie_detail.html', context)

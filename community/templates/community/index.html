@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% comment %} {% load static %} {% endcomment %}
+
+{% block content %}
+  <div class="row">
+    <section class="py-4 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Review List</h1><br>
+            <p>영화 리뷰를 공유하는 페이지입니다</p>
+            <p>
+              {% comment %} <a href="{% url 'community:create' %}" class="btn btn-primary my-2">리뷰 작성하기</a> {% endcomment %}
+            </p>
+        </div>
+      </div>
+    </section>
+    <hr>
+    {% if request.user.is_authenticated %}
+      <div class="alert alert-secondary" role="alert">
+        {{ user.username }}님, 환영합니다
+      </div>
+    {% endif %}
+    {% for review in reviews %}
+      <div class="list-group col-6">
+        <a href="{% url 'community:detail' review.pk %}" class="py-3 list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between mb-2">
+            <h4 class="mb-1">"{{ review.title }}"</h4>
+            <small class="text-muted mt-2">{{ review.updated_at|naturaltime }}</small>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-center mb-3">
+          <!--바꾼 부분-->
+          <img src="{{ review.movie.poster_path }}" alt="" >
+          </div>
+          <div class="d-flex p-2">
+            <h5 class="mb-1">{{ review.movie_title }}</h5>
+            <p class="mx-3">{{ review.rank }} / 10점</p>
+          </div>
+          <p class="px-2">{{ review.content }}</p>
+          <hr>
+        
+          {% comment %} 좋아요 {% endcomment %}
+          <div class="d-flex">
+            <form class="like-form" data-review-id="{{ review.pk }}">
+              {% csrf_token %}
+              {% if user in review.like_users.all %}
+                <button class="btn btn-link">
+                  <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:crimson;"></i>
+                </button>
+              {% else %}
+                <button class="btn btn-link">
+                  <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:black;"></i>
+                </button>
+              {% endif %}
+            </form>
+            <p>
+              <span id="like-count-{{ review.pk }}">
+                {{ review.like_users.all|length }} 명이 이 글을 좋아합니다.<br>
+              </span>
+            </p>
+          </div>
+        </a>
+        <br>
+      </div>
+    {% endfor %}
+    
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const forms = document.querySelectorAll('.like-form')
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    forms.forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault()
+        const reviewId = event.target.dataset.reviewId
+        axios.post(`http://127.0.0.1:8000/community/${reviewId}/like/`, {}, {
+          headers: {
+            'X-CSRFToken': csrftoken
+          }
+        })
+        .then(function (response) {
+          const { liked, likeCount } = response.data
+          const likedStatus = document.querySelector(`#like-${reviewId}`)
+          const likedCountStatus = document.querySelector(`#like-count-${reviewId}`)
+          console.log(likedStatus)
+
+          if (liked) {
+            likedStatus.setAttribute('style', "color:crimson;")
+          } else {
+            likedStatus.setAttribute('style', "color:black;")
+          }
+
+          likedCountStatus.innerText = `${likeCount}명이 이 글을 좋아합니다.`
+        })
+        .catch(function (error) {
+          if (error.response.status === 401) {
+            window.location.href = 'http://127.0.0.1:8000/accounts/login/'
+          }
+        })
+      })
+    })
+  </script>
+{% endblock %}
