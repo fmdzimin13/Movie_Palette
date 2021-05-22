@@ -13,6 +13,9 @@ from matplotlib import font_manager, rc
 from movies.models import Movie
 
 
+from django.conf import settings
+from movies import models
+
 # 모든 영화 리스트를 돌면서 title 뽑고 아래의 로직 돌기
 # -> 크롤링 결과 txt 파일과 워드클라우드 png 파일이 생긴다
 movies = Movie.objects.filter(custom_genre=1)
@@ -83,6 +86,10 @@ for movie in movies:
     # 텍스트 명사 
     f = open('./files_crawling/' + title + '.txt', 'r', encoding='utf-8')
     data = f.read()
+    f.close()
+    
+    if data == '':
+        continue
 
     if len(data) == 0: continue
     okt = Okt()
@@ -95,17 +102,22 @@ for movie in movies:
 
     data_cnt=collections.Counter(noun_data) 
 
+    font_name=font_manager.FontProperties(fname="C:/USERS/USER/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/A옛날사진관3.TTF"). get_name()
+    rc('font', family=font_name)
+
+    wc=WordCloud(font_path="C:/USERS/USER/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/A옛날사진관3.TTF", width=500, height=900, colormap = 'RdPu', background_color='white', max_words=100, stopwords=STOPWORDS).generate_from_frequencies(data_cnt)
     # font_name=font_manager.FontProperties(fname="C:/USERS/USER/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/A옛날사진관3.TTF"). get_name()
     font_name=font_manager.FontProperties(fname="C:/Font/a옛날사진관3.TTF"). get_name()
     rc('font', family=font_name)
 
     # wc=WordCloud(font_path="C:/USERS/USER/APPDATA/LOCAL/MICROSOFT/WINDOWS/FONTS/A옛날사진관3.TTF", width=900, height=500, colormap = 'RdPu', background_color='white', max_words=100, stopwords=STOPWORDS).generate_from_frequencies(data_cnt)
-    wc=WordCloud(font_path="C:/Font/a옛날사진관3.TTF", width=900, height=500, colormap = 'RdPu', background_color='white', max_words=100, stopwords=STOPWORDS).generate_from_frequencies(data_cnt)
+    # wc=WordCloud(font_path="C:/Font/a옛날사진관3.TTF", width=900, height=500, colormap = 'RdPu', background_color='white', max_words=100, stopwords=STOPWORDS).generate_from_frequencies(data_cnt)
     # wordcloud.recolor(color_func = "colorbrewer.diverging.Spectral_11")
     wc.to_file('static/'+ title +'.png')
     plt.figure(figsize=(10,10))
     plt.imshow(wc)
     plt.axis('off')
+
     plt.show(block=False)
     plt.pause(0.3)
     plt.close()

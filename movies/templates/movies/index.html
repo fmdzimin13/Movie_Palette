@@ -1,23 +1,116 @@
+{% load bootstrap5 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
+  {% bootstrap_css %}
   <title>Document</title>
+  <style> 
+    {% comment %} .imgswap img:last-child{display:none} 
+    .imgswap:hover img:first-child{display:none} 
+    .imgswap:hover img:last-child{display:inline-block} 
+
+    .imgswap {
+      width: 400px;
+      heigth: 400px;
+      overflow: hidden;
+    } {% endcomment %}
+
+    .imgswap {
+      position: relative;
+      margin: 5px auto;
+      width: 300px;
+      height: 400px;
+      transform-style: preserve-3d;
+    } 
+
+    .flip #poster,
+    .flip #wordCloud {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      transition: 0.5s linear;
+    }
+
+    .flip #poster {
+      z-index: 2;
+    }
+    .flip #wordCloud {
+    }
+
+    .imgswap #wordCloud {
+      transform: rotateY(-180deg);
+    }
+    .imgswap:hover #poster {
+      transform: rotateY(180deg);
+    }
+    .imgswap:hover #wordCloud {
+      transform: rotateY(0deg);
+    }
+  </style>
 </head>
 <body>
-  {% for movie in movies %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-    <img src="{{ movie.backdrop_path }}" alt="">
-    {% comment %} {% with "https://image.tmdb.org/t/p/w500"|add:movie.poster_path as poster_path  %}
-      {{ poster_path }}
-    {% endwith %} {% endcomment %}
-    {% comment %} 'https://image.tmdb.org/t/p/w500' + {{ movie.poster_path }} {% endcomment %}
-    {% comment %} {{ movie.poster_path }} {% endcomment %}
-    {% comment %} {{ movie.backdrop_path }} {% endcomment %}
-    {{ movie.custom_genre }}
-  {% endfor %}
+  <div id="movieList">
+  <form class="mt-4 mb-0 pb-0" style="font-size:medium;" action="{% url "accounts:logout" %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-lg mt-4" style="height: 50px; background-color: #d2e2d6;">로그아웃</button>
+    </div>
+  </form>
+    
+    {% for movie in movies %}
+      {{ movie.title }}
+      <div class="flip imgswap">
+        <img id="poster" src="{{ movie.poster_path }}" alt="">
+        <img id="wordCloud" src="{% static '알라딘.png' %}" alt="">
+      </div>
+      
+      {% comment %} <img src="{{ movie.backdrop_path }}" alt=""> {% endcomment %}
+      {% comment %} <img id="wordCloud-{{ movie.pk }}" @mouseout="getPoster" style="opacity: 0;" src="{% static '알라딘.png' %}" alt="알라딘"> {% endcomment %}
+      {% comment %} {% with "https://image.tmdb.org/t/p/w500"|add:movie.poster_path as poster_path  %}
+        {{ poster_path }}
+      'https://image.tmdb.org/t/p/w500' + {{ movie.poster_path }}
+      {{ movie.poster_path }}
+      {{ movie.backdrop_path }}
+      {{ movie.custom_genre }} {% endcomment %}
+    {% endfor %}
+   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+        el: '#movieList', 
+        data: {
+          posterSeen: true,
+          wordSeen: false, 
+        },
+        methods: {
+          getWordCloud: function (event) {
+            const movieId = event.target.dataset.movieId
+            const poster = document.querySelector(`#poster-${movieId}`)
+            const wordCloud = document.querySelector(`#wordCloud-${movieId}`)
+            poster.classList.add('hide')
+            wordCloud.classList.add('seen')
+          },
+          getPoster: function () {
+            const movieId = event.target.dataset.movieId
+            const poster = document.querySelector(`#poster-${movieId}`)
+            const wordCloud = document.querySelector(`#wordCloud-${movieId}`)
+            poster.setAttribute('seen')
+            wordCloud.setAttribute('hide')
+          },
+        }
+      })
+
+  </script>
 </body>
 </html>
+

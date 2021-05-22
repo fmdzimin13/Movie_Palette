@@ -56,17 +56,15 @@ def load_movie_data():
             get_movie_data(genre_code, key)
 
 
-
-
 @require_GET
 def home(request):
-    load_movie_data()
-    movies = Movie.objects.all()
-    context = {
-        'movies': movies,
-    }
-    return render(request, 'movies/index.html', context)
-    # return render(request, 'movies/home.html')
+    # load_movie_data()
+    # movies = Movie.objects.all()
+    # context = {
+    #     'movies': movies,
+    # }
+    # return render(request, 'movies/index.html', context)
+    return render(request, 'movies/home.html')
 
 
 

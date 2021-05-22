@@ -57,47 +57,6 @@ def signup(request):
     return render(request, 'accounts/signup.html', context)
 
 
-@require_POST
-def delete(request):
-    if request.user.is_authenticated:
-        request.user.delete()
-        auth_logout(request)
-    return redirect('movies:index')
-
-
-@login_required
-@require_http_methods(['GET', 'POST'])
-def update(request):
-    if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('movies:index')
-    else:
-        form = CustomUserChangeForm(instance=request.user)
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/update.html', context)
-
-
-@login_required
-@require_http_methods(['GET', 'POST'])
-def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect('movies:index')
-    else:
-        form = PasswordChangeForm(request.user)
-    context = {
-        'form': form,
-    }
-    return render(request, 'accounts/change_password.html', context)
-
-
 @login_required
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
