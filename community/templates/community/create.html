@@ -1,12 +1,41 @@
-{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
 
-{% block content %}
-  <form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="btn-group mt-2">
-      <input class="btn btn-dark" type="submit" value="Submit">
-      <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
+  {% bootstrap_css %}
+  <title>Document</title>
+</head>
+<body style="background-color: rgb(229, 228, 236); font-family: 'Jeju Myeongjo', serif;">
+  {% include "nav.html" %}
+  <div class="container">
+    <span class="m-0" style="position: absolute; top:110px; color: white; font-size: 150px;">Re</span>
+    <div class="position: absolute; d-flex justify-content-center mt-5">
+      <div class="px-2 mb-4" style="border-radius: 20px; width:70%; height:830px; background-color: white">
+        <div style="color: rgb(229, 228, 236); font-size: 150px; height: 200px;">view</div>
+        <div class="text-center mt-2 px-3">
+          <h3 style="color: rgb(209, 207, 219)">"Show your own color"</h3>
+          <h5 style="color: grey">영화를 보며 느꼈던 모든 것을 자유롭게 공유해주세요</h5>
+          <div class="mb-5 mt-4 mx-5" style="border-top: 1.5px solid rgb(209, 207, 219);"></div>
+            <form action="" method="POST">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <div class="btn-group mt-2">
+                <input class="btn btn-lg mt-3" style="height: 50px; background-color:rgb(229, 228, 236);" type="submit" value="Submit">
+                <a href="{% url 'community:index' %}" class="btn btn-lg mt-3" style="height: 50px; background-color:rgb(219, 219, 219);">Back</a>
+              </div>
+            </form>
+        </div>
+      </div>
     </div>
-  </form>
-{% endblock %}
+  </div>
+  {% bootstrap_javascript %}
+</body>
+</html>
+
