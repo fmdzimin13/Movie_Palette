@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 <div>
   <h3>{{ movie.title }}</h3>
@@ -11,6 +12,13 @@
  <div>
   영화 평점: {{ movie.vote_average }}
  </div>
+<div>
+  <h3>wordcloud</h3>
+  {% if movie.wordcloud %}
+    <img src="{{ movie.wordcloud.url }}" alt="">
+  {% endif %}
+</div>
+<a href="{% url 'movies:movie_list' movie.custom_genre %}">back</a>
  <div>
   
   {% for review in movie.review_set.all %}
@@ -19,5 +27,6 @@
   {% endfor %} 
  </div>
 
-  <a href="{% url 'community:create' movie.pk %}">리뷰작성</a>
+  <a href="{% url 'community:create' movie.pk %}">리뷰작성</a><br>
+  <a href="{% url 'movies:wordcloud_upload' movie.pk %}">워드클라우드 업로드</a>
 {% endblock  %}

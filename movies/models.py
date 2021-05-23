@@ -27,6 +27,7 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     backdrop_path = models.CharField(max_length=200, null=True)
     custom_genre = models.IntegerField()
+    wordcloud = models.ImageField(blank=True)
 
 
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/default.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/qna.css">
+  <link rel="stylesheet" href="./css/animation.css">
+  <link rel="stylesheet" href="./css/result.css">
+</head>
+<body>
+  <div class="container">
+    <!--시작 화면-->
+    <section id="main" class="mx-auto my-5 px-3 py-5">
+      <h3>Discover Your Personal COLOR</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione molestias, fugit dolor asperiores amet deleniti? Placeat deleniti dolorum voluptatum aut veniam, omnis corrupti ipsa debitis molestias sint et quo eius.</p>
+      <button type="button" class="btn btn-outline-primary mt-2" onclick="js:begin()">시작하기</button>
+    </section>
+    
+    <!--질문 화면-->
+    <section id="qna">
+      <div class="status mx-auto mt-5">
+        <div class="statusBar">
+        </div>
+      </div>
+      
+      <div class="qBox my-5 py-3 mx-auto">
+      </div>
+      
+      <div class="answerBox">
+      </div>
+    </section>
+    
+    <!--결과 화면-->
+    <section id="result">
+      <h3>Your Personal COLOR is....</h3>
+      <div class="resultName">
+
+      </div>
+      <div id="resultImg">
+    
+      </div>
+      <div class="resultDesc">
+
+      </div>
+      <div id="movieImg">
+        <h3>이런 영화 어때요?</h3>
+      </div>
+      <button type="button" class="btn btn-outline-primary mt-2" onclick="js:begin()">다시하기</button>
+      <button type="button" class="btn btn-outline-primary mt-2" onclick="">내 프로필 보기</button>
+      
+    </section>
+  </div>
+<script src="./js/data.js" charset="utf-8"></script>
+<script src="./js/start.js" charset="utf-8"></script>
+</body>
+</html>
