@@ -15,6 +15,8 @@ urlpatterns = [
     # 각 영화 상세 정보
     path('detail/<int:movie_pk>/', views.movie_detail, name='movie_detail'),
 
+    path('wordcloud/<int:movie_pk>/', views.wordcloud_upload, name='wordcloud_upload'),
+
 
     # 브랜드 컨셉 확인 url
     # path('about/', views.about, name='about'),

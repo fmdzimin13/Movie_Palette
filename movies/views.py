@@ -4,6 +4,7 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 import requests
 from pprint import pprint
 from .models import Movie
+from .forms import MovieForm
 
 
 API_URL = 'https://api.themoviedb.org/3'
@@ -23,31 +24,31 @@ def get_movie_data(request, custom_genre):
     url = get_url('discover', 'movie', region='KR', language='ko', with_genres=request)
     res = requests.get(url)
  
-    for idx, movie in enumerate(res.json().get('results')[:20]):
-        # if Movie.objects.filter(title=movie.get('title')).count() == 0:
-        Movie(
-            adult=movie.get('adult'),
-            title = movie.get('title'), 
-            overview = movie.get('overview'), 
-            release_date = movie.get('release_date'),
-            vote_average = movie.get('vote_average'),
-            poster_path = 'https://image.tmdb.org/t/p/w500'+movie.get('poster_path'),
-            backdrop_path = movie.get('backdrop_path'),
-            custom_genre = custom_genre,
-            ).save()
+    for idx, movie in enumerate(res.json().get('results')[:100]):
+        if Movie.objects.filter(title=movie.get('title')).count() == 0:
+            Movie(
+                adult=movie.get('adult'),
+                title = movie.get('title'), 
+                overview = movie.get('overview'), 
+                release_date = movie.get('release_date'),
+                vote_average = movie.get('vote_average'),
+                poster_path = 'https://image.tmdb.org/t/p/w500'+movie.get('poster_path'),
+                backdrop_path = movie.get('backdrop_path'),
+                custom_genre = custom_genre,
+                ).save()
 
 
 genre_1 = [10749]
-genre_2 = [10751, 35]
-genre_3 = [16]
+genre_2 = [10751, 16]
+genre_3 = [35]
 genre_4 = [18]
 genre_5 = [99]
-genre_6 = [14, 878]
-genre_7 = [28, 12]
-genre_8 = [27, 9648, 53]
+genre_6 = [878]
+genre_7 = [28, 12, 14]
+genre_8 = [27, 53, 9648]
 genre_9 = [80, 10752]
 genre_10 = [37, 36]
-genre_lookup = {1: genre_1, 2: genre_2, 3: genre_3, 4: genre_4, 5: genre_5, 6: genre_6, 7: genre_8, 8: genre_9, 10: genre_10}
+genre_lookup = {1: genre_1, 2: genre_2, 3: genre_3, 4: genre_4, 5: genre_5, 6: genre_6, 7: genre_7, 8: genre_8, 9: genre_9, 10: genre_10}
 
 
 def load_movie_data():
@@ -114,3 +115,21 @@ def movie_detail(request, movie_pk):
         'movie': movie,
     }
     return render(request, 'movies/movie_detail.html', context)
+
+
+@require_http_methods(['GET', 'POST'])
+def wordcloud_upload(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if request.method == 'POST':
+        form = MovieForm(request.POST, request.FILES, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect('movies:movie_list', movie.custom_genre)
+    # edit
+    else:
+        form = MovieForm(instance=movie)
+    context = {
+        'form': form,
+        'movie': movie,
+    }
+    return render(request, 'movies/wordcloud_upload.html', context)
