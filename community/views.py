@@ -34,6 +34,7 @@ def create(request, movie_pk):
         form = ReviewForm()
     context = {
         'form': form,
+        'title': movie.title,
     }
     return render(request, 'community/create.html', context)
 

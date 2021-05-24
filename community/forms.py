@@ -1,52 +1,46 @@
 from django import forms
+from django.forms import widgets
 from .models import Review, Comment
 
 
 class ReviewForm(forms.ModelForm):
-    # movie_title = forms.CharField(
-    #     label='영화 제목',
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'placeholder': '영화 제목을 작성해주세요',
-    #             'maxlength': 50,
-    #         }
-    #     )
-    # )
-
     title = forms.CharField(
-        label='리뷰 제목',
+        label="Review Title",
+        label_suffix='',
         widget=forms.TextInput(
             attrs={
                 'placeholder': '리뷰 제목을 작성해주세요',
                 'maxlength': 50,
+                'class': 'form-control',
+                'style': 'margin: 0 auto;  width: 40%;',
             }
         )
     )
     
     content = forms.CharField(
-        label='리뷰 내용',
+        label="Review Content",
+        label_suffix='',
         widget=forms.Textarea(
             attrs={
                 'placeholder': '리뷰를 작성해주세요',
                 'maxlength': 200,
+                'class': 'form-control',
+                'style': 'margin: 0 auto; width: 40%;',
                 'size': 10,
             }
         )
     )
 
     rank = forms.IntegerField(
-        label='별점',
+        label="Rate",
+        label_suffix='',
         widget=forms.NumberInput(
             attrs={
-                'placeholder': '1~10점',
-                'style': 'max-width: 100px;',
+                'placeholder': '1~10',
+                'style': 'width: 8%; margin-left: 5px;',
             }
         )
     )
-
-    # image = forms.ImageField(
-    #     label='포스터 사진',
-    # )
 
     class Meta:
         model = Review

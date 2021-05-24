@@ -1,53 +1,60 @@
-{% comment %} <div class="mt-2" style="background-color:#353535; width: 500px; height: 1px;"></div> {% endcomment %}
 <nav class="navbar navbar-light mb-0 pb-0 px-1">
   
   <div>
     {% if request.user.is_authenticated %}
-      <div>
-        <a class="text-decoration-none" style="color:#353535;" href="">WELCOME ""</a> / 
-        <a class="text-decoration-none" style="color:#353535;" href="">LOGOUT</a>
+      <div class="mx-2 mb-0 pb-0 mt-0">
+        <span style="color:white;">WELCOME</span>
+        <span style="color:white; font-size: 140%;">"{{ request.user.username }}"</span>
       </div>
     {% else %}
-      <div>
-        <a class="text-decoration-none" style="color:#353535;" href="">LOGIN</a> / 
-        <a class="text-decoration-none" style="color:#353535;" href="">SIGNUP</a>
+      <div class="mx-2">
+        <a class="text-decoration-none" style="color:white;" href="{% url "accounts:login" %}">LOGIN /</a> 
+        <a class="text-decoration-none" style="color:white;" href="{% url "accounts:signup" %}">SIGNUP</a>
       </div>
     {% endif %}
-    <button class="navbar-toggler mt-2" id="toggleBtn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler mt-4" id="toggleBtn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars" style="color: white; font-size: 150%;"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+    <div class="collapse navbar-collapse mb-0" id="navbarToggleExternalContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3">
-        {% if request.user.is_authenticated %}
-          <li class="nav-item" style="backgroun-color:#353535;">
-            <a class="nav-link" href="#" stlye="color: white;">
-              <h4 class="px-2">MY PAGE</h4>
-            </a>
-          </li>
-        {% endif %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
-            <h4 class="px-2">HOME</h4>
+            <h4 class="px-2" style="color:white;">HOME</h4>
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url "movies:about" %}">
+            <h4 class="px-2" style="color:white;">ABOUT</h4>
+          </a>
+        </li>
+        {% if request.user.is_authenticated %}
+          <div class="d-flex mt-1">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "accounts:profile" request.user.username %}" stlye="color: white;">
+                <h4 class="px-2">MY PAGE /</h4>
+              </a>
+            </li>
+            <form class="mt-2 mx-1 mb-0 pb-0" style="font-size:small;" action="{% url "accounts:logout" %}" method="POST">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <input style="background-color:transparent;" type="submit" value="LOGOUT">
+            </form>
+          </div>
+        {% endif %}
+        <li class="nav-item">
           <a class="nav-link" href="#">
-            <h4 class="px-2">ABOUT</h4>
+            <h4 class="px-2" style="color:black;">RECOMMEND</h4>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <h4 class="px-2">RECOMMEND</h4>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <h4 class="px-2">COMMUNITY</h4>
+          <a class="nav-link" href="{% url "community:index" %}">
+            <h4 class="px-2" style="color:black;">COMMUNITY</h4>
           </a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex mt-1" action="{% url 'movies:search' %}" method="GET" for="keyword">
+        <input class=" me-2" type="search" style="background-color:transparent; width: 210px;" placeholder="Search" aria-label="Search" name="keyword" id="keyword">
+        <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
     </div>
   </div>

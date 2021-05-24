@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_GET, require_POST, require_http_methods
+from django.views.decorators.http import require_safe, require_POST, require_http_methods
 
 import requests
 from pprint import pprint
@@ -56,15 +56,32 @@ def load_movie_data():
             get_movie_data(genre_code, key)
 
 
-@require_GET
+@require_safe
 def home(request):
-    # load_movie_data()
-    # movies = Movie.objects.all()
-    # context = {
-    #     'movies': movies,
-    # }
-    # return render(request, 'movies/index.html', context)
-    return render(request, 'movies/home.html')
+    movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:5]
+    movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:5]
+    movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:5]
+    movies4 = Movie.objects.filter(custom_genre=4).values('poster_path')[:5]
+    movies5 = Movie.objects.filter(custom_genre=5).values('poster_path')[:5]
+    movies6 = Movie.objects.filter(custom_genre=6).values('poster_path')[:5]
+    movies7 = Movie.objects.filter(custom_genre=7).values('poster_path')[:5]
+    movies8 = Movie.objects.filter(custom_genre=8).values('poster_path')[:5]
+    movies9 = Movie.objects.filter(custom_genre=9).values('poster_path')[:5]
+    movies10 = Movie.objects.filter(custom_genre=10).values('poster_path')[:5]
+    # movies2.
+    context = {
+        'movies1': movies1,
+        'movies2': movies2,
+        'movies3': movies3,
+        'movies4': movies4,
+        'movies5': movies5,
+        'movies6': movies6,
+        'movies7': movies7,
+        'movies8': movies8,
+        'movies9': movies9,
+        'movies10': movies10,
+    }
+    return render(request, 'movies/home.html', context)
 
 
 
@@ -74,6 +91,10 @@ def index(request):
         'movies': movies,
     }
     return render(request, 'movies/index.html', context)
+
+
+def about(request):
+    return render(request, 'movies/about.html')
 
 
 def movie_list(request, custom_genre):
@@ -105,10 +126,21 @@ def movie_list(request, custom_genre):
     return render(request, 'movies/movie_list.html', context)
 
 
-@require_GET
+@require_safe
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     context = {
         'movie': movie,
     }
     return render(request, 'movies/movie_detail.html', context)
+
+
+@require_safe
+def search(request):
+    keyword = request.GET.get('keyword')
+    movies = Movie.objects.search(movie=keyword)
+    context = {
+        'keyword': keyword,
+        'movies': movies, 
+    }
+    return render(request, 'movies/search_result.html', context)

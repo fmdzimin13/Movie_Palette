@@ -4,11 +4,7 @@ from django.contrib.auth import logout as auth_logout
 from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash, get_user_model
-from django.contrib.auth.forms import (
-    AuthenticationForm, 
-    PasswordChangeForm,
-)
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm, LoginForm
 from django.http import JsonResponse, HttpResponse
 
 
@@ -19,12 +15,12 @@ def login(request):
         return redirect('movies:index')
 
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = LoginForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(request.GET.get('next') or 'movies:index')
+            return redirect(request.GET.get('next') or 'movies:home')
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     context = {
         'form': form,
     }
@@ -35,7 +31,7 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return redirect('movies:index')
+    return redirect('movies:home')
 
 
 @require_http_methods(['GET', 'POST'])

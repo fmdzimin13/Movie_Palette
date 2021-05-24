@@ -75,7 +75,7 @@
       
       {% comment %} <img src="{{ movie.backdrop_path }}" alt=""> {% endcomment %}
       {% comment %} <img id="wordCloud-{{ movie.pk }}" @mouseout="getPoster" style="opacity: 0;" src="{% static '알라딘.png' %}" alt="알라딘"> {% endcomment %}
-      {% comment %} {% with "https://image.tmdb.org/t/p/w500"|add:movie.poster_path as poster_path  %}
+      {% comment %} {% with "https://image.tmdb.org,/t/p/w500"|add:movie.poster_path as poster_path  %}
         {{ poster_path }}
       'https://image.tmdb.org/t/p/w500' + {{ movie.poster_path }}
       {{ movie.poster_path }}
@@ -111,6 +111,7 @@
       })
 
   </script>
+  {% bootstrap_javascript %}
 </body>
 </html>
 

@@ -14,9 +14,9 @@ urlpatterns = [
 
     # 각 영화 상세 정보
     path('detail/<int:movie_pk>/', views.movie_detail, name='movie_detail'),
-
+    path('search/', views.search, name='search'),
 
     # 브랜드 컨셉 확인 url
-    # path('about/', views.about, name='about'),
+    path('about/', views.about, name='about'),
     # path('red/', views.red, name='red'),
 ]
