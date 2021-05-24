@@ -1,7 +1,7 @@
-{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% extends 'community_base.html' %}
 
 
-{% comment %} {% block content %} {% endcomment %}
+{% block content %}
 <div>
   <h3>{{ movie.title }}</h3>
 </div>
@@ -29,7 +29,6 @@
 
   <a href="{% url 'community:create' movie.pk %}">리뷰작성</a><br>
   <a href="{% url 'movies:wordcloud_upload' movie.pk %}">워드클라우드 업로드</a>
-{% comment %} {% endblock  %} {% endcomment %}
 
 <form class="like-form" data-movie-id="{{ movie.pk }}">
   {% csrf_token %}
@@ -46,7 +45,7 @@
 
 <p>
   <span id="like-count-{{ movie.pk }}">
-    {{ movie.like.all|length }} 명이 이 글을 좋아합니다.<br>
+    {{ movie.like.all|length }} 명이 이 영화를 좋아합니다.<br>
   </span>
 </p>
 
@@ -59,7 +58,7 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault()
     const movieId = event.target.dataset.movieId
-    axios.post(`http://127.0.0.1:8000/community/like/${movieId}/`, {}, {
+    axios.post(`http://127.0.0.1:8000/movies/like/${movieId}/`, {}, {
       headers: {
         'X-CSRFToken': csrftoken
       }
@@ -85,3 +84,4 @@
   })
 
 </script>
+{% endblock  %}
