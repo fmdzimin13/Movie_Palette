@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'movies',
     'accounts',
     'community',
+    'recommend',
 
     'django_extensions',
     'bootstrap5',

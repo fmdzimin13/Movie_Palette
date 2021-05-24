@@ -14,6 +14,8 @@ urlpatterns = [
 
     # 각 영화 상세 정보
     path('detail/<int:movie_pk>/', views.movie_detail, name='movie_detail'),
+    # 영화 좋아요(담기)
+    path('like/<int:movie_pk>/', views.like, name='like'),
 
     path('wordcloud/<int:movie_pk>/', views.wordcloud_upload, name='wordcloud_upload'),
 
