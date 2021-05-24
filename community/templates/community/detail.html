@@ -1,62 +1,61 @@
-{% extends 'base.html' %}
+{% extends 'community_base.html' %}
 
-{% comment %} {% load static %} {% endcomment %}
 {% load humanize %}
 {% load bootstrap5 %}
 
 {% block content %}
-  <h2 class="fw-bold py-1">"{{ review.title }}"</h2>
-  <hr>
-  <ul class="list-group">
-    <li class="list-group-item p-4">
-      <h3>{{ review.movie_title }}</h3>
-      <p class="mt-3 mb-0">{{ review.rank }}점 / 10점</p>
-      <hr>
-      <div class="row p-2">
-        <div class="col-7">
-          {% comment %} {% if review.image %} {% endcomment %}
-            {% comment %} <img class="col-11" src="{{ review.image.url }}" alt="review-image" style="width:100%;"> {% endcomment %}
-          {% comment %} {% endif %} {% endcomment %}
-          <img class="col-11" src="{{ review.movie.poster_path }}" alt="" style="width:100%;">
+  <div class="mt-5" style="width:800px; margin: 0 auto; background-color: wheat;">
+    <h2 class="fw-bold py-1">"{{ review.title }}"</h2>
+    <div class="list-group" style="background-color: white;">
+      <div class="list-group-item p-4">
+        <div class="d-flex">
+          <h3>{{ review.movie.title }}</h3>
+          <p class="mt-2 mx-3">{{ review.rank }}점 / 10점</p>
         </div>
-        <div class="col-5 px-4">
-          <h5>COMMENT</h5>
-          <p>{{ comments|length }}개의 댓글이 있습니다.</p><br>
-          <form action="{% url 'community:create_comment' review.pk %}" method="POST" class="d-flex">
-            {% csrf_token %}
-            {{ comment_form.as_p }}
-            <input class="mx-3 mb-3" type="submit" value="댓글 작성">
-          </form>
-          <hr>
-          <ul class="list-group list-group-flush">
-            {% for comment in comments %}
-              <li class="list-group-item px-0">
-                <div class="d-flex">
-                  <p style="font-size:18px;">{{ comment.user }} / </p>
-                  <small class="mt-1">{{ comment.created_at|naturaltime }}</small>
-                </div>
-                <div class="d-flex">
-                  <p>{{ comment.content }}</p>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
+        <hr>
+        <div class="row p-2" >
+          <div class="col-6">
+            {{ review.content }}
+          </div>
+          <div class="col-6 px-4">
+            <h5>COMMENT</h5>
+            <p>{{ comments|length }}개의 댓글이 있습니다.</p><br>
+            <form action="{% url 'community:create_comment' review.pk %}" method="POST" class="d-flex">
+              {% csrf_token %}
+              {{ comment_form.as_p }}
+              <input class="mx-3 mb-3" type="submit" value="댓글 작성">
+            </form>
+            <hr>
+            <ul class="list-group list-group-flush">
+              {% for comment in comments %}
+                <li class="list-group-item px-0">
+                  <div class="d-flex">
+                    <p style="font-size:18px;">{{ comment.user }} / </p>
+                    <small class="mt-1">{{ comment.created_at|naturaltime }}</small>
+                  </div>
+                  <div class="d-flex">
+                    <p>{{ comment.content }}</p>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
+        <br>
+        <hr>
+        <small class="d-flex justify-content-end">created by {{ review.user }} / {{ review.created_at|naturalday }}</small>
+        <a class="d-flex justify-content-end text-decoration-none text-dark my-2" href="{% url 'accounts:profile' review.user.username %}"><b>{{ review.user }} <i class="fas fa-user-circle"></i></b></a>
       </div>
-      <br>
-      <hr>
-      <small class="d-flex justify-content-end">created by {{ review.user }} / {{ review.created_at|naturalday }}</small>
-      <a class="d-flex justify-content-end text-decoration-none text-dark my-2" href="{% url 'accounts:profile' review.user.username %}"><b>{{ review.user }} <i class="fas fa-user-circle"></i></b></a>
-    </li>
-  </ul>
-  <br>
-  <div class="d-flex justify-content-between">
-  
-  <div class="btn-group">
-    <div>
-      <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>
     </div>
+    <br>
+    <div class="d-flex justify-content-between">
+    
+    <div class="btn-group">
+      <div>
+        <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>
+      </div>
+    </div>
+    <br>
+    <br>
   </div>
-  <br>
-  <br>
 {% endblock %}

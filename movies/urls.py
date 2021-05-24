@@ -17,8 +17,9 @@ urlpatterns = [
 
     path('wordcloud/<int:movie_pk>/', views.wordcloud_upload, name='wordcloud_upload'),
 
+    path('search/', views.search, name='search'),
 
     # 브랜드 컨셉 확인 url
-    # path('about/', views.about, name='about'),
+    path('about/', views.about, name='about'),
     # path('red/', views.red, name='red'),
 ]

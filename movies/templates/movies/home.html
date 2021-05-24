@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
   {% bootstrap_css %}
   <title>Document</title>
   <style>
@@ -15,27 +17,28 @@
     }
 
     .container {
-      height: 1000px;
+      height: 1100px;
       overflow: hidden;
     }
     
     .color-chip {
-      width: 100%;
+      width: 200px;
       height: 200px;
       cursor: pointer;
+      margin: 1rem;
       top: 0px;
       pointer-events: auto;
       opacity: 1;
     }
 
     .color-text {
-      font-size: calc(1vw + 9px);
+      font-size: calc(1vw + 15px);
       color: white;
       font-weight: normal;
       max-width: 20px;
-      padding: 10px;
       transition: opacity 0.6s ease 0s;
       opacity: 0;
+      padding: 40px;
     }
 
     .color-chip:hover .color-text {
@@ -51,8 +54,9 @@
       top: 0px;
       left: 0px;
       transition: transform 1.7s ease 1s;
-      transform: scale(10, 5);
+      transform: scale(14, 15);
       pointer-events: none;
+      z-index: 1;
     }
 
     .cursor-none {
@@ -73,76 +77,160 @@
 
     .movieList {
       position: absolute;
-      top: 200px;
+      top: 100px;
       left: 180px;
-      width: 800px;
+      width: 78%;
       height: 100%;
       overflow: auto;
+      z-index: 3;
     }
 
     #x-button {
       position: absolute;
       top: 30px;
       font-size: 200%;
+      z-index: 2;
+    }
+
+    img {
+      width: 200px;
+      height: 300px;
+      margin: 0 auto;
+    }
+
+    /* #background-box {
+      position: absolute;
+      z-index: 2;
+      top: 0px;
+      left: 0px;
+      width: 90%;
+      height: 90%;
+      background-color: black;
+      transform: scale(14, 15);
+      opacity: 0.5;
+    } */
+
+    .btn {
+      background: none;
+      border: 2px solid rgb(116, 0, 0);
+      font: inherit;
+      letter-spacing: inherit;
+      height: 50px;
+      width: 200px;
+      text-transform: inherit;
+      transition: color 1s;
+      background-color: rgb(153, 0, 0);
+      color: white;
+      font-size: 130%;
+    }
+
+    .btn:hover {
+      background-color: rgb(116, 0, 0);
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div id="app">
-    <div class="container">
-      <div class="mt-5 row">
-        <h1 style="font-size: 400%;">Movie Palette</h1>
-        <div class="col-5">
-          {% include "movies/nav.html" %}
+  <div id="app" style="background-color: black">
+    <div id="white" style="width: 100%; height: 380px;">
+    
+      <div class="container">
+        <div class="mt-5 row">
+          <h1 style="font-size: 500%; color:white;">Movie Palette</h1>
+          <div class="col-5">
+            {% include "movies/nav.html" %}
+          </div>
         </div>
+        <!-- 영화 컬러칩-->
+        <div class="chip-box row">
+          <div @click="largeColor" id="red" class="color-chip col-2" style="border-radius:50%; background-color: red;">
+            <div v-if="seen" class="color-text">Romance</div>
+          </div>
+          <div @click="largeColor" id="yellow" class="color-chip col-2" style="border-radius:50%; background-color: yellow;">
+            <div v-if="seen" class="color-text">Animation</div>
+          </div>
+          <div @click="largeColor" id="green" class="color-chip col-2" style="border-radius:50%; background-color: green;">
+            <div v-if="seen" class="color-text">Docu</div>
+          </div>
+          <div @click="largeColor" id="blue" class="color-chip col-2" style="border-radius:50%; background-color: blue;">
+            <div v-if="seen" class="color-text">Action</div>
+          </div>
+          <div @click="largeColor" id="purple" class="color-chip col-2" style="border-radius:50%; background-color: purple;">
+            <div v-if="seen" class="color-text">Noir</div>
+          </div>
+          <div @click="largeColor" id="orange" class="color-chip col-2" style="border-radius:50%; background-color: orange;">
+            <div v-if="seen" class="color-text">Family</div>
+          </div>
+          <div @click="largeColor" id="greenYellow" class="color-chip col-2" style="border-radius:50%; background-color: greenyellow;">
+            <div v-if="seen" class="color-text">Drama</div>
+          </div>
+          <div @click="largeColor" id="blueGreen" class="color-chip col-2" style="border-radius:50%; background-color: #005666;">
+            <div v-if="seen" class="color-text">Fantasy</div>
+          </div>
+          <div @click="largeColor" id="darkBlue" class="color-chip" style="border-radius:50%; background-color: darkblue;">
+            <div v-if="seen" class="color-text">Thriller</div>
+          </div>
+          <div @click="largeColor" id="redPurple" class="color-chip col-2" style="border-radius:50%; background-color: #9B0143;">
+            <div v-if="seen" class="color-text">Western</div>
+          </div>
+        </div>
+        <!-- 영화 리스트-->
+        <div class="mt-5 px-5">
+          <div style="text-align: right;">
+            <button @click="closeColor" v-if="!seen" id="x-button" type="button" class="btn-close"></button>
+          </div>
+          <div id="redMovie" class="movieList px-5" v-if="redSeen">
+            <div>
+              <div class="mb-4" style="color: white; font-size: 400%; border-bottom: 1px solid white">Red; Romance</div>
+              <div style="color: rgb(32, 32, 32); font-size: 150%; letter-spacing: 2px; line-height: 180%;">
+                열정의 red
+              </div>
+            </div>
+            <div id="background-box"></div>
+              <div class="d-flex">
+                {% for poster in movies1 %}
+                  <!-- {{ poster.poster_path }} -->
+                  <img class="mx-3" src="{{ poster.poster_path }}" alt="">
+                {% endfor %}
+              </div>
+              <div class="d-flex justify-content-center">
+                <a href="#" role="button" class="btn mt-5">영화보러가기</a>
+              </div>
+              
+            </div>
+          <div id="orangeMovie" class="movieList px-5" v-if="orangeSeen">
+            Orange; Family
+          </div>
+          <div id="yellowMovie" class="movieList px-5" v-if="yellowSeen">
+            Yellow; Comedy
+          </div>
+          <div id="greenYellowMovie" class="movieList px-5" v-if="greenYellowSeen">
+            Greenyellow; Drama
+          </div>
+          <div id="greenMovie" class="movieList px-5" v-if="greenSeen">
+            Green; Docu
+          </div>
+          <div id="blueGreenMovie" class="movieList px-5" v-if="blueGreenSeen">
+            Bluegreen; SF
+          </div>
+          <div id="blueMovie" class="movieList px-5" v-if="blueSeen">
+            Blue; Action
+          </div>
+          <div id="darkBlueMovie" class="movieList px-5" v-if="darkBlueSeen">
+            Darkblue; Thriller
+          </div>
+          <div id="purpleMovie" class="movieList px-5" v-if="purpleSeen">
+            Purple; Noir
+          </div>
+          <div id="redPurpleMovie" class="movieList px-5" v-if="redPurpleSeen">
+            Redpurple; Western
+          </div>
+        </div>
+        <!-- footer -->
+        <footer v-if="seen" class="align-content-end mb-3">
+          <p>chaeeun & jimin</p>
+        </footer>
       </div>
-      <!-- 영화 컬러칩-->
-      
-      <div class="chip-box d-flex">
-        <div @click="largeColor" id="red" class="color-chip" style="border-radius:50%; background-color: red;">
-          <div v-if="seen" class="color-text">Romance</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: orange;">
-          <div v-if="seen" class="color-text">Family</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: yellow;">
-          <div v-if="seen" class="color-text">Animation</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: greenyellow;">
-          <div v-if="seen" class="color-text">Drama</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: green;">
-          <div v-if="seen" class="color-text">Documentary</div>
-        </div>
-      </div>
-      <div class="chip-box d-flex">
-        <div class="color-chip" style="border-radius:50%; background-color: #005666;">
-          <div v-if="seen" class="color-text">Fantasy</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: blue;">
-          <div v-if="seen" class="color-text">Action</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: darkblue;">
-          <div v-if="seen" class="color-text">Thriller</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: purple;">
-          <div v-if="seen" class="color-text">Noir</div>
-        </div>
-        <div class="color-chip" style="border-radius:50%; background-color: #9B0143;">
-          <div v-if="seen" class="color-text">Western</div>
-        </div>
-      </div>
-      <!-- 영화 리스트-->
-      <div class="mt-5 row">
-        <button @click="closeColor" v-if="!seen" id="x-button" type="button" class="btn-close offset-10 col-1"></button>
-        <div id="redMovie" class="movieList" v-if="redSeen">
-          <p>영화 정보 리스트로 돌면서 출력하기</p>
-        </div>
-      </div>
-      <!-- footer -->
-      <footer v-if="seen" class="align-content-end">
-        <p class="mb-3">chaeeun & jimin</p>
-      </footer>
     </div>
   </div>
   
@@ -155,26 +243,114 @@
         data: {
           seen: true,
           redSeen: false, 
+          orangeSeen: false,
+          yellowSeen: false,
+          greenYellowSeen: false,
+          greenSeen: false,
+          blueGreenSeen: false,
+          blueSeen: false,
+          darkBlueSeen: false,
+          purpleSeen: false,
+          redPurpleSeen: false,
         },
         methods: {
           largeColor: function (event) {
             const toggleBtn = document.querySelector('#toggleBtn')
             const navContent = document.querySelector('#navbarToggleExternalContent')
-            if (navContent.classList.length === 3) {
+            if (navContent.classList.length === 4) {
               toggleBtn.click()
             }
             event.target.classList.add('large')
-            setTimeout(this.seen = false, 3000)
-            this.redSeen = true
+            setTimeout(() => this.seen = false, 1000);
+
+            if (event.target.id === 'red') {
+              setTimeout(() => this.redSeen = true, 2000);
+            }
+            if (event.target.id === 'orange') {
+              setTimeout(() => this.orangeSeen = true, 2000);
+            }
+            if (event.target.id === 'yellow') {
+              setTimeout(() => this.yellowSeen = true, 2000);
+            }
+            if (event.target.id === 'greenYellow') {
+              setTimeout(() => this.greenYellowSeen = true, 2000);
+            }
+            if (event.target.id === 'green') {
+              setTimeout(() => this.greenSeen = true, 2000);
+            }
+            if (event.target.id === 'blueGreen') {
+              setTimeout(() => this.blueGreenSeen = true, 2000);
+            }
+            if (event.target.id === 'blue') {
+              setTimeout(() => this.blueSeen = true, 2000);
+            }
+            if (event.target.id === 'darkBlue') {
+              setTimeout(() => this.darkBlueSeen = true, 2000);
+            }
+            if (event.target.id === 'purple') {
+              setTimeout(() => this.purpleSeen = true, 2000);
+            }
+            if (event.target.id === 'redPurple') {
+              setTimeout(() => this.redPurpleSeen = true, 2000);
+            }
             
             const chipColors = document.querySelectorAll('.color-chip')
             chipColors.classList.add('cursor-none')
           },
           closeColor: function () {
-            this.redSeen = false
-            this.seen = true
             const red = document.querySelector('#red')
-            red.classList.remove('large')
+            const orange = document.querySelector('#orange')
+            const yellow = document.querySelector('#yellow')
+            const greenYellow = document.querySelector('#greenYellow')
+            const green = document.querySelector('#green')
+            const blueGreen = document.querySelector('#blueGreen')
+            const blue = document.querySelector('#blue')
+            const darkBlue = document.querySelector('#darkBlue')
+            const purple = document.querySelector('#purple')
+            const redPurple = document.querySelector('#redPurple')
+
+            if (red.classList.contains('large')) {
+              this.redSeen = false
+              red.classList.remove('large')
+            }
+            if (orange.classList.contains('large')) {
+              this.orangeSeen = false
+              orange.classList.remove('large')
+            }
+            if (yellow.classList.contains('large')) {
+              this.yellowSeen = false
+              yellow.classList.remove('large')
+            }
+            if (greenYellow.classList.contains('large')) {
+              this.greenYellowSeen = false
+              greenYellow.classList.remove('large')
+            }
+            if (green.classList.contains('large')) {
+              this.greenSeen = false
+              green.classList.remove('large')
+            }
+            if (blueGreen.classList.contains('large')) {
+              this.blueGreenSeen = false
+              blueGreen.classList.remove('large')
+            }
+            if (blue.classList.contains('large')) {
+              this.blueSeen = false
+              blue.classList.remove('large')
+            }
+            if (darkBlue.classList.contains('large')) {
+              this.darkBlueSeen = false
+              darkBlue.classList.remove('large')
+            }
+            if (purple.classList.contains('large')) {
+              this.purpleSeen = false
+              purple.classList.remove('large')
+            }
+            if (redPurple.classList.contains('large')) {
+              this.redPurpleSeen = false
+              redPurple.classList.remove('large')
+            }
+
+            this.seen = true
             const chipColors = document.querySelectorAll('.color-chip')
             chipColors.classList.remove('cursor-none')
           }

@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db.models import Q
 
 # Create your models here.
 # class Genre(models.Model):
@@ -16,6 +17,18 @@ from django.conf import settings
 #   overview = models.TextField(default='', blank=True)
 
 
+class SearchManager(models.Manager):
+    def search(self, **kwargs):
+        qs = self.get_queryset()
+
+        movie = kwargs.get('movie')
+        qs = qs.filter(
+            Q(title__icontains=movie) | Q(overview__icontains=movie)
+        )
+
+        return qs
+
+
 class Movie(models.Model):
     like = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name='like_movies')
     adult = models.BooleanField()
@@ -28,6 +41,7 @@ class Movie(models.Model):
     backdrop_path = models.CharField(max_length=200, null=True)
     custom_genre = models.IntegerField()
     wordcloud = models.ImageField(blank=True)
+    objects = SearchManager()
 
 
 
