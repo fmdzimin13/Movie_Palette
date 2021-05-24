@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %} {% endcomment %}
 
 
-{% block content %}
+{% comment %} {% block content %} {% endcomment %}
 <div>
   <h3>{{ movie.title }}</h3>
 </div>
@@ -29,4 +29,59 @@
 
   <a href="{% url 'community:create' movie.pk %}">리뷰작성</a><br>
   <a href="{% url 'movies:wordcloud_upload' movie.pk %}">워드클라우드 업로드</a>
-{% endblock  %}
+{% comment %} {% endblock  %} {% endcomment %}
+
+<form class="like-form" data-movie-id="{{ movie.pk }}">
+  {% csrf_token %}
+  {% if user in movie.like.all %}
+    <button class="btn btn-link">
+      <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:crimson;"></i>
+    </button>
+  {% else %}
+    <button class="btn btn-link">
+      <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:black;"></i>
+    </button>
+  {% endif %}
+</form>
+
+<p>
+  <span id="like-count-{{ movie.pk }}">
+    {{ movie.like.all|length }} 명이 이 글을 좋아합니다.<br>
+  </span>
+</p>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const form = document.querySelector('.like-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const movieId = event.target.dataset.movieId
+    axios.post(`http://127.0.0.1:8000/community/like/${movieId}/`, {}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then(function (response) {
+      const { liked, likeCount } = response.data
+      const likedStatus = document.querySelector(`#like-${movieId}`)
+      const likedCountStatus = document.querySelector(`#like-count-${movieId}`)
+
+      if (liked) {
+        likedStatus.setAttribute('style', "color:crimson;")
+      } else {
+        likedStatus.setAttribute('style', "color:black;")
+      }
+
+      likedCountStatus.innerText = `${likeCount}명이 이 글을 좋아합니다.`
+    })
+    .catch(function (error) {
+      if (error.response.status === 401) {
+        window.location.href = 'http://127.0.0.1:8000/accounts/login/'
+      }
+    })
+  })
+
+</script>

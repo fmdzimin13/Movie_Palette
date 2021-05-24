@@ -17,39 +17,28 @@ def index(request):
 def load_color(request):
     print(request.GET)
     personal_color = request.GET.get('name')
+    color_code = request.GET.get('code')
     print(personal_color)
     if request.user.is_authenticated:
         user = request.user
         user.personal_color = personal_color
+        user.color_code = color_code
         user.save()
 
         message = { 'content' : '정상적으로 저장되었습니다.'}
     return JsonResponse(message)
 
 
-# @require_POST
+@require_POST
 def load(request):
     print(request.POST)
     if request.user.is_authenticated:
         user = request.user
-        user.personal_color = request.POST.personal_color
+        user.personal_color = request.POST.get('personal_color')
+        user.color_code = request.POST.get('color_code')
         user.save()
-
-        # if user.personal_color.get(pk=user.pk):
-        #     before = user.personal_color.get(pk=user.pk)
-        #     # before = user.persona
-        #     followed = False
-        # else:
-        #     user.personal_color.add(user)
-        #     followed = True
-
-        # follow_status = {
-        #     # 'followed': followed,
-        #     # 'followersCount': person.followers.count(),
-        #     # 'followingsCount': person.followings.count(),
-        # }
-        # # return redirect('accounts:profile', person.username)
-        # return JsonResponse(follow_status)
+        message = { 'content' : '정상적으로 저장되었습니다.'}
+    return JsonResponse(message)
 
 
 def get_movies(request):

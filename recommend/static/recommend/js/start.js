@@ -166,9 +166,11 @@ start.addEventListener('click', function() {
 // btn.addEventListener('click', function () {
 //   let point = calculation()
 //   const name = infoList[point].name
+//   const code = colorMatch[point].color
 //   axios.get('http://127.0.0.1:8000/recommend/load_color/', {
 //     params: {
 //       name,
+//       code,
 //     }
 //   })
 //   .then(function (res) {
@@ -177,23 +179,34 @@ start.addEventListener('click', function() {
 // })
 // })
 
-//문제가 되는 부분! 분명 post로 보냈는데 왜 get 요청이 보내지는거지???!
-const load = document.querySelector('#load-form')
+
+//성공적인 POST
+const btn1 = document.querySelector('#loadpost')
+console.log(btn1)
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
-load.addEventListener('submit', function (event) {
-  event.preventDefault()
-  // console.log(event)
-  let point = calculation()
-  const name = infoList[point].name  
-  axios({
-    method: 'post',
-    url: 'http://127.0.0.1:8000/recommend/load/',
-    headers: {
-      'X-CSRFToken': csrftoken
-    },
-    data: { personal_color: name },
-  })
+const data = new FormData()
+
+  btn1.addEventListener('click', function (event) {
+    console.log(event)
+    let point = calculation()
+    console.log(point)
+    const name = infoList[point].name
+    const code = colorMatch[point].color  
+    data.append('personal_color', name)
+    data.append('color_code', code)
+    console.log(data)
+
+
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/recommend/load/',
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
+      // data: data,
+      data,
+    })
     .then(function (response) {
       console.log(response)
     })
@@ -201,6 +214,31 @@ load.addEventListener('submit', function (event) {
       console.log(error)
     })
 })
+
+//문제가 되는 부분! 분명 post로 보냈는데 왜 get 요청이 보내지는거지???!
+// const load = document.querySelector('#load-form')
+// const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+// load.addEventListener('submit', function (event) {
+//   event.preventDefault()
+//   // console.log(event)
+//   let point = calculation()
+//   const name = infoList[point].name  
+//   axios({
+//     method: 'post',
+//     url: 'http://127.0.0.1:8000/recommend/load/',
+//     headers: {
+//       'X-CSRFToken': csrftoken
+//     },
+//     data: { personal_color: name },
+//   })
+//     .then(function (response) {
+//       console.log(response)
+//     })
+//     .catch(function (error) {
+//       console.log(error)
+//     })
+// })
 
 const movie = document.querySelector('#movie')
 movie.addEventListener('click', function () {
@@ -230,3 +268,17 @@ movie.addEventListener('click', function () {
 
   })
 })
+
+function again() {
+  result.style.WebkitAnimation = "fadeOut 1s"
+  result.style.animation = "fadeOut 1s"
+  setTimeout(() => {
+    main.style.WebkitAnimation = "fadeIn 1s"
+    main.style.animation = "fadeIn 1s"
+    setTimeout(() => {
+      result.style.display = "none"
+      main.style.display = "block"
+    }, 450)
+    begin()
+  }, 450)
+}

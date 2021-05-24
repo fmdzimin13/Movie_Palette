@@ -5,3 +5,4 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     followers = models.ManyToManyField('self', symmetrical=False, related_name='followings')
     personal_color = models.CharField(max_length=50, default='')
+    color_code = models.CharField(max_length=50, default='')

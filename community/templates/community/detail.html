@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %} {% endcomment %}
 
 {% comment %} {% load static %} {% endcomment %}
 {% load humanize %}
 {% load bootstrap5 %}
 
-{% block content %}
+{% comment %} {% block content %} {% endcomment %}
   <h2 class="fw-bold py-1">"{{ review.title }}"</h2>
   <hr>
   <ul class="list-group">
@@ -59,4 +59,4 @@
   </div>
   <br>
   <br>
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}

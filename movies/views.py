@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 
 import requests
 from pprint import pprint
@@ -131,3 +132,24 @@ def wordcloud_upload(request, movie_pk):
         'movie': movie,
     }
     return render(request, 'movies/wordcloud_upload.html', context)
+
+
+@require_POST
+def like(request, movie_pk):
+    if request.user.is_authenticated:
+        movie = get_object_or_404(Movie, pk=movie_pk)
+        user = request.user
+
+        if movie.like.filter(pk=user.pk).exists():
+            movie.like.remove(user)
+            liked = False
+        else:
+            movie.like.add(user)
+            liked = True
+
+        liked_status = {
+            'liked': liked,
+            'likeCount': movie.like.count()
+        }
+        return JsonResponse(liked_status)
+    return HttpResponse(status=401)
