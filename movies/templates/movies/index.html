@@ -58,6 +58,7 @@
 </head>
 <body>
   <div id="movieList">
+  <a href="{% url 'recommend:index' %}">추천</a>
   <form class="mt-4 mb-0 pb-0" style="font-size:medium;" action="{% url "accounts:logout" %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
@@ -70,7 +71,7 @@
       {{ movie.title }}
       <div class="flip imgswap">
         <img id="poster" src="{{ movie.poster_path }}" alt="">
-        <img id="wordCloud" src="{% static '알라딘.png' %}" alt="">
+        <img id="wordCloud" src="{% static '알라딘.png'%}" alt="">
       </div>
       
       {% comment %} <img src="{{ movie.backdrop_path }}" alt=""> {% endcomment %}

@@ -1,3 +1,4 @@
+
 const main = document.querySelector("#main")
 const qna = document.querySelector("#qna")
 const result = document.querySelector('#result')
@@ -25,7 +26,7 @@ function calculation () {
       }
     } 
   }
-  console.log(calcList)
+  // console.log(calcList)
   // 높은 value 순으로 정렬된 배열 만들기
   const resultList = calcList.sort(function (a, b) {
     if (a.value > b.value) {
@@ -55,12 +56,16 @@ function setResult() {
   const resultName = document.querySelector('.resultName')
   resultName.innerHTML = infoList[point].name
 
-  const resultImg = document.createElement('img')
-  const imgDiv = document.querySelector('#resultImg')
-  const imgURL = 'img/image' + point + '.png'
-  resultImg.src = imgURL
-  resultImg.alt = point
-  imgDiv.appendChild(resultImg)
+  const imgDiv = document.querySelector('.colorChip')
+  imgDiv.style.backgroundColor = colorMatch[point].color
+
+  
+  // const resultImg = document.createElement('img')
+  // const imgDiv = document.querySelector('#resultImg')
+  // const imgURL = 'img/image' + point + '.png'
+  // resultImg.src = imgURL
+  // resultImg.alt = point
+  // imgDiv.appendChild(resultImg)
 
   const resultDesc = document.querySelector('.resultDesc')
   resultDesc.innerHTML = infoList[point].desc
@@ -149,6 +154,79 @@ function begin() {
     let qIdx = 0
     goNext(qIdx)
   }, 450)
-
- 
 }
+
+const start = document.querySelector('#start')
+start.addEventListener('click', function() {
+  begin()
+})
+
+//get요청으로만 보내진다면 내가 맞출 수밖에... 이러면 db에 저장이 잘된다...?
+// const btn = document.querySelector('#load')
+// btn.addEventListener('click', function () {
+//   let point = calculation()
+//   const name = infoList[point].name
+//   axios.get('http://127.0.0.1:8000/recommend/load_color/', {
+//     params: {
+//       name,
+//     }
+//   })
+//   .then(function (res) {
+//     console.log(res)
+//     // console.log(res.data)
+// })
+// })
+
+//문제가 되는 부분! 분명 post로 보냈는데 왜 get 요청이 보내지는거지???!
+const load = document.querySelector('#load-form')
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+load.addEventListener('submit', function (event) {
+  event.preventDefault()
+  // console.log(event)
+  let point = calculation()
+  const name = infoList[point].name  
+  axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/recommend/load/',
+    headers: {
+      'X-CSRFToken': csrftoken
+    },
+    data: { personal_color: name },
+  })
+    .then(function (response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+})
+
+const movie = document.querySelector('#movie')
+movie.addEventListener('click', function () {
+  const showMovies = document.querySelector('.showMovies')
+  while (showMovies.hasChildNodes()) {
+    showMovies.removeChild(showMovies.firstChild)
+  }
+
+  let point = calculation()
+  const target_genre1 = recommendList[point].recommend[0]
+  const target_genre2 = recommendList[point].recommend[1]
+  axios.get('http://127.0.0.1:8000/recommend/get_movies/', {
+    params: {
+      target_genre1,
+      target_genre2
+    }
+  })
+  .then(function (res) {
+    // console.log(res)
+    // console.log(res.data)
+    for (let i = 0; i < res.data.length; i++) {
+      const showMovie = document.createElement('img')
+      showMovie.src = res.data[i].poster_path
+      const showMovies = document.querySelector('.showMovies')
+      showMovies.appendChild(showMovie)
+    }
+
+  })
+})
