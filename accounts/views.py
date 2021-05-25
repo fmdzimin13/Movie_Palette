@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.views.decorators.http import require_POST, require_http_methods
+from django.views.decorators.http import require_POST, require_http_methods, require_safe
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash, get_user_model
 from .forms import CustomUserCreationForm, LoginForm
 from django.http import JsonResponse, HttpResponse
+
 
 
 
@@ -84,3 +85,12 @@ def follow(request, user_pk):
         # return redirect('accounts:profile', person.username)
         return JsonResponse(follow_status)
 
+
+def get_movies(request):
+    username = request.GET.get('username')
+    person = get_object_or_404(get_user_model(), username=username)
+    movies = person.like_movies.all().values()
+    print(movies)
+    mylike = list(movies)
+
+    return JsonResponse(mylike, safe=False)

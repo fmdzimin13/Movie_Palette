@@ -9,6 +9,7 @@
 {% if custom_genre == 2 %}
   {% for movie in movies_orange %}
     {{ movie.title }}
+    <a href="{% url 'movies:movie_detail' movie.pk %}">detail</a>
     <img src="{{ movie.poster_path }}" alt="">
   {% endfor %}
 {% endif %}
@@ -16,6 +17,7 @@
 {% if custom_genre == 3 %}
   {% for movie in movies_yellow %}
     {{ movie.title }}
+    <a href="{% url 'movies:movie_detail' movie.pk %}">detail</a>
     <img src="{{ movie.poster_path }}" alt="">
   {% endfor %}
 {% endif %}
