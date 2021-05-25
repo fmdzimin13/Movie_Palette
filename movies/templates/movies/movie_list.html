@@ -1,70 +1,612 @@
-{% if custom_genre == 1 %}
-  {% for movie in movies_red %}
-    {{ movie.title }}
-    <a href="{% url 'movies:movie_detail' movie.pk %}">detail</a>
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+{% load bootstrap5 %}
 
-{% if custom_genre == 2 %}
-  {% for movie in movies_orange %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
+  {% bootstrap_css %}
+  <title>Document</title>
+  <style>
+    #movieList {
+      font-family: 'Jeju Myeongjo', serif;
+    }
 
-{% if custom_genre == 3 %}
-  {% for movie in movies_yellow %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .redpurple {
+      background: #cc2b5e;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #753a88, #cc2b5e);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #753a88, #cc2b5e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 4 %}
-  {% for movie in movies_greenyellow %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .purple {
+      background: #654ea3;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #eaafc8, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 5 %}
-  {% for movie in movies_green %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .darkblue {
+      background: #4b6cb7;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #182848, #4b6cb7);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #182848, #4b6cb7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 6 %}
-  {% for movie in movies_bluegreen %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .blue {
+      background: #1488CC;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 7 %}
-  {% for movie in movies_blue %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .bluegreen {
+      background: #134E5E;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 8 %}
-  {% for movie in movies_darkblue %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .green {
+      background: #56ab2f;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 9 %}
-  {% for movie in movies_purple %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .yellowgreen {
+      background: #DCE35B;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #45B649, #DCE35B);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #45B649, #DCE35B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    
+    .yellow {
+      background: #fceabb;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #fceabb, #f8b500);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #fceabb, #f8b500); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
 
-{% if custom_genre == 10 %}
-  {% for movie in movies_redpurple %}
-    {{ movie.title }}
-    <img src="{{ movie.poster_path }}" alt="">
-  {% endfor %}
-{% endif %}
+    .orange {
+      background: #f46b45;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #eea849, #f46b45);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #eea849, #f46b45); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    .red {
+      background: #cb2d3e;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+
+    img {
+      width: 300px;
+      height: 400px;
+    }
+
+    .imgswap {
+      position: relative;
+      margin: 5px auto;
+      width: 300px;
+      height: 400px;
+      transform-style: preserve-3d;
+    } 
+
+    .flip #poster,
+    .flip #wordCloud {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      transition: 0.5s linear;
+    }
+
+    .flip #poster {
+      z-index: 2;
+    }
+    .flip #wordCloud {
+    }
+
+    .imgswap #wordCloud {
+      transform: rotateY(-180deg);
+    }
+    .imgswap:hover #poster {
+      transform: rotateY(180deg);
+    }
+    .imgswap:hover #wordCloud {
+      transform: rotateY(0deg);
+    }
+</style>
+</head>
+<body>
+  <div id="movieList">
+    <div class="container px-0">
+      <div style="width: 100%; height: 50px;">
+        <div class="d-flex justify-content-center mt-1">
+          <div class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></div>
+          <div style="border-radius:50%; width: 20px; height: 20px; background-color: orange;"></div>
+          <div class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></div>
+          {% comment %} <div style="border-radius:50%; width: 20px; height: 20px; background-color: greenyellow;"></div> {% endcomment %}
+          <div style="border-radius:50%; width: 20px; height: 20px; background-color: green;"></div>
+          {% comment %} <div style="border-radius:50%; width: 20px; height: 20px; background-color: #005666;"></div> {% endcomment %}
+          {% comment %} <div class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: blue;"></div> {% endcomment %}
+          <div class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: darkblue;"></div>
+          {% comment %} <div class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: purple;"></div> {% endcomment %}
+          {% comment %} <div style="border-radius:50%; width: 20px; height: 20px; background-color: #9B143;"></div> {% endcomment %}
+        </div>
+        <div class="d-flex justify-content-center mt-2 mb-0" style="color: #353535; letter-spacing :5px;">
+          <h5>Movie Palette</h5>
+        </div>
+      </div>
+      {% if custom_genre == 1 %}
+        <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Red</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; romance</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_red %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/1/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 2 %}
+        <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Orange</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; family</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_orange %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/2/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 3 %}
+        <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Yellow</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; comedy</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_yellow %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/3/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 4 %}
+        <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Greenyellow</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; drama</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_greenyellow %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/4/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 5 %}
+        <span class="m-0 p-0" style="color: black;; font-size: 1000%; letter-spacing: 5px;">Green</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; documentary</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_green %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/5/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 6 %}
+        <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Bluegreen</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; SF</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_bluegreen %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/6/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 7 %}
+        {<span class="m-0 p-0" style="color: rgb(49, 0, 0); font-size: 1000%; letter-spacing: 5px;">Blue</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; action</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_blue %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/7/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 8 %}
+        <span class="m-0 p-0" style="color: rgb(49, 0, 0); font-size: 1000%; letter-spacing: 5px;">Darkblue</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; thriller</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_darkblue %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/8/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 9 %}
+        <span class="m-0 p-0" style="color: rgb(49, 0, 0); font-size: 1000%; letter-spacing: 5px;">Purple</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; noir</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_purple %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/9/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if custom_genre == 10 %}
+        <span class="m-0 p-0" style="color: rgb(49, 0, 0); font-size: 1000%; letter-spacing: 5px;">Redpurple</span>
+        <span style="color:white; font-size: 400%; letter-spacing: 5px;">; western</span>
+        <div class="px-4 mx-0" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+          <div class="row">
+            {% for movie in movies_redpurple %}
+              <div class="col-3 mt-4">
+                <a style="text-decoration: none;" href="{% url 'movies:movie_detail' movie.pk %}">
+                  <div class="flip imgswap">
+                    <img id="poster" src="{{ movie.poster_path }}" alt="">
+                    <img id="wordCloud" class="word" src="/static/10/{{ movie.title }}.png" alt="">
+                  </div>
+                  <h5 style="text-align: center; font-weight:bold; color: rgb(49, 0, 0)">{{ movie.title }}</h5>
+                </a>
+                <div class="d-flex justify-content-center">
+                  <form class="like-form" data-movie-id="{{ movie.pk }}">
+                    {% csrf_token %}
+                    {% if user in movie.like.all %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="fas fa-heart fa-lg" style="color:#FF5252;"></i>
+                      </button>
+                    {% else %}
+                      <button class="btn btn-link px-0">
+                        <i id="like-{{ movie.pk }}" class="far fa-heart fa-lg" style="color:black;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="margin-left: 0.5rem;font-size: 115%;" id="like-count-{{ movie.pk }}">{{ movie.like.all|length }} |</span>
+                  <i style="font-size: 120%; margin-top: 6px;" class="mx-2 far fa-comment-dots"></i>
+                  <span style="font-size: 115%;">{{ movie.review_set.all|length }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>  
+  {% bootstrap_javascript %}
+  
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  window.onload = function () {
+    const url = window.location.href
+    const custom_genre = url[url.length-2]
+    const custom_genre10 = url[url.length-3]
+    if (custom_genre === '1') {
+      document.body.classList.add('red')
+    }
+    if (custom_genre === '2') {
+      document.body.classList.add('orange')
+    }
+    if (custom_genre === '3') {
+      document.body.classList.add('yellow')
+    }
+    if (custom_genre === '4') {
+      document.body.classList.add('yellowgreen')
+    }
+    if (custom_genre === '5') {
+      document.body.classList.add('green')
+    }
+    if (custom_genre === '6') {
+      document.body.classList.add('bluegreen')
+    }
+    if (custom_genre === '7') {
+      document.body.classList.add('blue')
+    }
+    if (custom_genre === '8') {
+      document.body.classList.add('darkblue')
+    }
+    if (custom_genre === '9') {
+      document.body.classList.add('purple')
+    }
+    if (custom_genre10 === '1') {
+      document.body.classList.add('redpurple')
+    }
+  }
+
+  const forms = document.querySelectorAll('.like-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+      const movieId = event.target.dataset.movieId
+      console.log(movieId)
+      axios.post(`http://127.0.0.1:8000/movies/like/${movieId}/`, {}, {
+        headers: {
+          'X-CSRFToken': csrftoken
+        }
+      })
+      .then(function (response) {
+        console.log(response)
+        const { liked, likeCount } = response.data
+        const likedStatus = document.querySelector(`#like-${movieId}`)
+        const likedCountStatus = document.querySelector(`#like-count-${movieId}`)
+        
+        if (liked) {
+          likedStatus.setAttribute('style', "color:#FF5252")
+          likedStatus.setAttribute('class', "fas fa-heart fa-lg")
+        } else {
+          likedStatus.setAttribute('style', "color:black;")
+          likedStatus.setAttribute('class', "far fa-heart fa-lg")
+        }
+
+        likedCountStatus.innerText = `${likeCount} |`
+      })
+
+      .catch(function (error) {
+        if (error.response.status === 401) {
+          window.location.href = 'http://127.0.0.1:8000/accounts/login/'
+        }
+      })
+    })
+  })
+
+   const movieList = new Vue({
+    el: '#movieList', 
+    data: {
+      posterSeen: true,
+      wordSeen: false, 
+    },
+    methods: {
+      getWordCloud: function (event) {
+        const movieId = event.target.dataset.movieId
+        const poster = document.querySelector(`#poster-${movieId}`)
+        const wordCloud = document.querySelector(`#wordCloud-${movieId}`)
+        poster.classList.add('hide')
+        wordCloud.classList.add('seen')
+      },
+      getPoster: function () {
+        const movieId = event.target.dataset.movieId
+        const poster = document.querySelector(`#poster-${movieId}`)
+        const wordCloud = document.querySelector(`#wordCloud-${movieId}`)
+        poster.setAttribute('seen')
+        wordCloud.setAttribute('hide')
+      },
+    }
+  })
+</script>
+
+</body>
+</html>

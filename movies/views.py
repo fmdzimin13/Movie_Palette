@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
-
 import requests
 from pprint import pprint
 from .models import Movie
@@ -60,17 +59,17 @@ def load_movie_data():
 
 @require_safe
 def home(request):
-    movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:5]
-    movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:5]
-    movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:5]
-    movies4 = Movie.objects.filter(custom_genre=4).values('poster_path')[:5]
-    movies5 = Movie.objects.filter(custom_genre=5).values('poster_path')[:5]
-    movies6 = Movie.objects.filter(custom_genre=6).values('poster_path')[:5]
-    movies7 = Movie.objects.filter(custom_genre=7).values('poster_path')[:5]
-    movies8 = Movie.objects.filter(custom_genre=8).values('poster_path')[:5]
-    movies9 = Movie.objects.filter(custom_genre=9).values('poster_path')[:5]
-    movies10 = Movie.objects.filter(custom_genre=10).values('poster_path')[:5]
-    # movies2.
+    movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:3]
+    movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:3]
+    movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:3]
+    movies4 = Movie.objects.filter(custom_genre=4).values('poster_path')[:3]
+    movies5 = Movie.objects.filter(custom_genre=5).values('poster_path')[:3]
+    movies6 = Movie.objects.filter(custom_genre=6).values('poster_path')[:3]
+    movies7 = Movie.objects.filter(custom_genre=7).values('poster_path')[:3]
+    movies8 = Movie.objects.filter(custom_genre=8).values('poster_path')[:3]
+    movies9 = Movie.objects.filter(custom_genre=9).values('poster_path')[:3]
+    movies10 = Movie.objects.filter(custom_genre=10).values('poster_path')[:3]
+
     context = {
         'movies1': movies1,
         'movies2': movies2,
@@ -84,7 +83,6 @@ def home(request):
         'movies10': movies10,
     }
     return render(request, 'movies/home.html', context)
-
 
 
 def index(request):
@@ -124,7 +122,6 @@ def movie_list(request, custom_genre):
         'movies_redpurple': movies_redpurple,
         'custom_genre': custom_genre,
     }
-
     return render(request, 'movies/movie_list.html', context)
 
 
