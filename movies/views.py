@@ -58,8 +58,31 @@ def load_movie_data():
             get_movie_data(genre_code, key)
 
 
+# 네이버 api 배우, 감독 정보 추가
+client_id = 'vwPIJqyIOemmmfcDFFmi'
+client_secret = 'dn5XCPlugY'
+
+header_parms = {'X-Naver-Client-Id': client_id, 'X-Naver-Client-Secret': client_secret}
+
+def add_info():
+    movies = Movie.objects.all()
+    for movie in movies:
+        query = movie.title
+        url = f'https://openapi.naver.com/v1/search/movie.json?query={query}'
+        res = requests.get(url, headers=header_parms)
+        data = res.json()
+        pprint(data)
+        # print(data.get('items')[0])
+        if data.get('items'):
+            movie.subtitle = data.get('items')[0].get('subtitle')
+            movie.director = data.get('items')[0].get('director')
+            movie.actors = data.get('items')[0].get('actor')
+            movie.save()
+
+
 @require_safe
 def home(request):
+    add_info()
     movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:5]
     movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:5]
     movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:5]

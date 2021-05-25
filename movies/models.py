@@ -42,6 +42,9 @@ class Movie(models.Model):
     custom_genre = models.IntegerField()
     wordcloud = models.ImageField(blank=True)
     objects = SearchManager()
+    subtitle = models.CharField(max_length=100, null=True)
+    director = models.CharField(max_length=50, null=True)
+    actors = models.CharField(max_length=100, null=True)
 
 
 
