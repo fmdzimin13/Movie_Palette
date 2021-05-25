@@ -5,6 +5,7 @@ import requests
 from pprint import pprint
 from .models import Movie
 from .forms import MovieForm
+from django.db.models import Avg
 
 
 API_URL = 'https://api.themoviedb.org/3'
@@ -151,8 +152,12 @@ def movie_list(request, custom_genre):
 @require_safe
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    avg_rank = movie.review_set.aggregate(Avg('rank'))['rank__avg']
+    drop = 'https://image.tmdb.org/t/p/w300/'+ movie.backdrop_path
     context = {
         'movie': movie,
+        'avg_rank': avg_rank,
+        'drop': drop,
     }
     return render(request, 'movies/movie_detail.html', context)
 

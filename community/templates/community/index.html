@@ -1,9 +1,18 @@
-{% extends 'community_base.html' %}
-
+{% load bootstrap5 %}
 {% load humanize %}
 
-{% block content %}
-  <style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
+  {% bootstrap_css %}
+    <style>
     .poster {
       width: 280px;
       height: 280px;
@@ -22,82 +31,101 @@
       text-overflow: ellipsis;
     }
   </style>
-  <div class="row">
-    <section class="py-4 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Review List</h1><br>
-            <p>영화 리뷰를 공유하는 페이지입니다</p>
+</head>
+<body style="font-family: 'Jeju Myeongjo', serif;">
+  {% include "nav.html" %}
+    <div id="white" style="width: 100%; height: 250px;">
+      <div class="container">
+        <div class="mx-auto" style="color:black; padding-top: 30px;">
+          <h1 style="font-size: 500%;">Community</h1><br>
+        </div>
+        <div class="mx-3 mb-5">
+          {% if request.user.is_authenticated %}
+            <span style="color:black; letter-spacing: 3px;">WELCOME</span>
+            <span style="color:black; font-size: 140%; letter-spacing: 3px;">"{{ request.user.username }}"</span>
+          {% else %}
+            <a class="text-decoration-none" style="color:black; letter-spacing: 3px;" href="{% url "accounts:login" %}">LOGIN /</a> 
+            <a class="text-decoration-none" style="color:black; letter-spacing: 3px;" href="{% url "accounts:signup" %}">SIGNUP</a>
+          {% endif %}
+          <p class="mt-2">영화 리뷰를 공유하는 페이지입니다</p>
+        </div>
+        <hr>
+        <div class="row">
+          {% for review in reviews %}
+            <div class="list-group col-3">
+              <a href="{% url 'community:detail' review.pk %}" class="py-3 list-group-item list-group-item-action" style="height: 550px;">
+                <!-- 장르 컬러 라벨링 -->
+                <div class="d-flex m-0 p-0">
+                  {% if review.movie.custom_genre == 1 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: red; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 2 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: orange; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 3 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 4 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: greenyellow; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 5 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: green; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 6 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: #005666; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 7 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: blue; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 8 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: darkblue; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 9 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: purple; opacity: 0.3;"></div>
+                  {% elif review.movie.custom_genre == 10 %}
+                    <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: #9B143; opacity: 0.3;"></div>
+                  {% endif %}
+                  <h5 class="text-center review">"{{ review.title }}"</h5>
+                </div>
+                <small class="text-muted d-flex justify-content-end">{{ review.updated_at|naturaltime }}</small>
+                
+                <hr>
+                <div class="mb-3 poster">
+                <!--바꾼 부분-->
+                  <img src="{{ review.movie.poster_path }}" alt="review-image" >
+                </div>
+                <div class="d-flex p-2">
+                  <p class="lead mb-1">{{ review.movie.title }}</p>
+                  <small class="mx-2 mt-1">{{ review.rank }} / 10점</small>
+                </div>
+                <p class="review px-2 m-0">{{ review.content }}</p>
+                <hr class="mt-0 mb-3">
+                <!-- 좋아요 -->
+                <div class="d-flex">
+                  <form class="like-form" data-review-id="{{ review.pk }}">
+                    {% csrf_token %}
+                    {% if user in review.like_users.all %}
+                      <button class="m-0 p-0 mx-2 btn btn-link">
+                        <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:crimson; font-size: 90%;"></i>
+                      </button>
+                    {% else %}
+                      <button class="m-0 p-0 mx-2 btn btn-link">
+                        <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:black; font-size: 90%;"></i>
+                      </button>
+                    {% endif %}
+                  </form>
+                  <span style="font-size: 90%; " id="like-count-{{ review.pk }}">
+                    <p>{{ review.like_users.all|length }} 명이 이 글을 좋아합니다.</p>
+                  </span>
+                </div>
+              </a>
+              <br>
+            </div>
+          {% endfor %}
         </div>
       </div>
-    </section>
-    {% if request.user.is_authenticated %}
-      {{ user.username }}님, 환영합니다
-    {% endif %}
-    <hr>
-    {% for review in reviews %}
-      <div class="list-group col-3">
-        <a href="{% url 'community:detail' review.pk %}" class="py-3 list-group-item list-group-item-action" style="height: 550px;">
-          <!-- 장르 컬러 라벨링 -->
-          <div class="d-flex m-0 p-0">
-            {% if review.movie.custom_genre == 1 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: red; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 2 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: orange; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 3 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 4 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: greenyellow; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 5 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: green; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 6 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: #005666; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 7 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: blue; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 8 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: darkblue; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 9 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: purple; opacity: 0.3;"></div>
-            {% elif review.movie.custom_genre == 10 %}
-              <div class="m-0" style="border-radius:50%; width: 20px; height: 20px; background-color: #9B143; opacity: 0.3;"></div>
-            {% endif %}
-            <h5 class="text-center review">"{{ review.title }}"</h5>
-          </div>
-          <small class="text-muted d-flex justify-content-end">{{ review.updated_at|naturaltime }}</small>
-          
-          <hr>
-          <div class="mb-3 poster">
-          <!--바꾼 부분-->
-            <img src="{{ review.movie.poster_path }}" alt="review-image" >
-          </div>
-          <div class="d-flex p-2">
-            <p class="lead mb-1">{{ review.movie.title }}</p>
-            <small class="mx-2 mt-1">{{ review.rank }} / 10점</small>
-          </div>
-          <p class="review px-2 m-0">{{ review.content }}</p>
-          <hr class="mt-0 mb-3">
-          <!-- 좋아요 -->
-          <div class="d-flex">
-            <form class="like-form" data-review-id="{{ review.pk }}">
-              {% csrf_token %}
-              {% if user in review.like_users.all %}
-                <button class="m-0 p-0 mx-2 btn btn-link">
-                  <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:crimson; font-size: 90%;"></i>
-                </button>
-              {% else %}
-                <button class="m-0 p-0 mx-2 btn btn-link">
-                  <i id="like-{{ review.pk }}" class="fas fa-heart fa-lg" style="color:black; font-size: 90%;"></i>
-                </button>
-              {% endif %}
-            </form>
-            <span style="font-size: 90%; " id="like-count-{{ review.pk }}">
-              <p>{{ review.like_users.all|length }} 명이 이 글을 좋아합니다.</p>
-            </span>
-          </div>
-        </a>
-        <br>
-      </div>
-    {% endfor %}
+    </div>
+  {% bootstrap_javascript %}
+</body>
+</html>
+
+
+
+{% block content %}
+
+  
     
   
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
