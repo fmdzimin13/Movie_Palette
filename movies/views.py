@@ -81,7 +81,7 @@ def add_info():
 
 @require_safe
 def home(request):
-    add_info()
+    # add_info()
     movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:3]
     movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:3]
     movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:3]
@@ -205,3 +205,13 @@ def like(request, movie_pk):
         }
         return JsonResponse(liked_status)
     return HttpResponse(status=401)
+
+
+
+def get_movie(request):
+    movie_pk = request.GET.get('moviepk')
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    query = movie.title + ' ' + 'movie trailer'
+    print(query)
+    context = {'query': query}
+    return JsonResponse(context)

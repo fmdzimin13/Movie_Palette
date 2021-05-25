@@ -101,6 +101,15 @@
 
         <div class="w-100">
           <a href="{% url 'community:create' movie.pk %}">리뷰작성</a><br>
+
+          <!--유투브 들어갈 div-->
+          <div class="video-container">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <!--width="400px" height="250px"-->
+
           <div class="list-group">
             {% for review in movie.review_set.all %}
               <a href="{% url 'community:detail' review.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
@@ -139,8 +148,9 @@
 <p style="opacity:0;" id="customGenre">{{ movie.custom_genre }}</p>
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-  window.onload = function () {
+  window.onload = function (event) {
     const url = window.location.href
     const custom_genre = document.querySelector('#customGenre').innerText
     if (custom_genre === '1') {
@@ -173,6 +183,62 @@
     if (custom_genre === '1-') {
       document.body.classList.add('redpurple')
     }
+
+    console.log(event)
+    const iframe = document.querySelector('.embed-responsive-item')
+    let path = event.target.location.pathname
+    let moviepk = path.substring(15, path.length-1)
+    console.log(moviepk)
+    axios.get('http://127.0.0.1:8000/movies/get_movie/', {
+      params: {
+        moviepk,
+      }
+    })
+    .then(function (res) {
+      const dict = res.data
+      console.log(dict.query)
+      const query = dict.query
+
+      const API_KEY = 'AIzaSyBoRcoDXtTX17xghBnv2o4faswjfOSESBQ'
+      const API_URL = 'https://www.googleapis.com/youtube/v3/search'
+      const params = {
+        key: API_KEY,
+        part: 'snippet',
+        type: 'video',
+        q: query,
+      }
+
+      axios({
+        url: API_URL,
+        method: 'get',
+        params,
+      })
+      .then(function (res) {
+        console.log(res.data.items[0].id)
+        const videoURI = res.data.items[0].id.videoId
+        console.log(videoURI)
+        iframe.src = 'https://www.youtube.com/embed/' + videoURI
+      })
+
+    })
   }
+
+  // window.addEventListener('load', function(event) {
+  //   console.log(event)
+  //   const videoDiv = document.querySelector('.video-container')
+  //   const iframe = document.querySelector('.embed-responsive-item')
+  //   let path = event.target.location.pathname
+  //   let moviepk = path.substring(15, path.length-1)
+  //   console.log(moviepk)
+  //   axios.get('http://127.0.0.1:8000/movies/get_movie/', {
+  //     params: {
+  //       moviepk,
+  //     }
+  //   })
+  //   .then(function (res) {
+  //     console.log(res.data)
+  //   })
+
+  // })
 </script>
 {% endblock  %}
