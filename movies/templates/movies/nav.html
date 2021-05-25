@@ -3,13 +3,13 @@
   <div>
     {% if request.user.is_authenticated %}
       <div class="mx-2 mb-0 pb-0 mt-0">
-        <span style="color:white;">WELCOME</span>
-        <span style="color:white; font-size: 140%;">"{{ request.user.username }}"</span>
+        <span style="color:white; letter-spacing: 3px;">WELCOME</span>
+        <span style="color:white; font-size: 140%; letter-spacing: 3px;">"{{ request.user.username }}"</span>
       </div>
     {% else %}
       <div class="mx-2">
-        <a class="text-decoration-none" style="color:white;" href="{% url "accounts:login" %}">LOGIN /</a> 
-        <a class="text-decoration-none" style="color:white;" href="{% url "accounts:signup" %}">SIGNUP</a>
+        <a class="text-decoration-none" style="color:white; letter-spacing: 3px;" href="{% url "accounts:login" %}">LOGIN /</a> 
+        <a class="text-decoration-none" style="color:white; letter-spacing: 3px;" href="{% url "accounts:signup" %}">SIGNUP</a>
       </div>
     {% endif %}
     <button class="navbar-toggler mt-4" id="toggleBtn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">

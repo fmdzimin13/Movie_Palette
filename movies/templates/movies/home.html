@@ -12,6 +12,18 @@
   {% bootstrap_css %}
   <title>Document</title>
   <style>
+    @font-face {
+    font-family: 'CHONBUKL';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/CHONBUKL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    #quote {
+      font-family: 'CHONBUKL';
+      font-size: 800%;
+    }
+
     #app {
       font-family: 'Jeju Myeongjo', serif;
     }
@@ -53,8 +65,8 @@
     .large {
       top: 0px;
       left: 0px;
-      transition: transform 1.7s ease 1s;
-      transform: scale(14, 15);
+      transition: transform 1.8s ease 1s;
+      transform: scale(17, 17);
       pointer-events: none;
       z-index: 1;
     }
@@ -77,7 +89,7 @@
 
     .movieList {
       position: absolute;
-      top: 100px;
+      top: 50px;
       left: 180px;
       width: 78%;
       height: 100%;
@@ -89,7 +101,7 @@
       position: absolute;
       top: 30px;
       font-size: 200%;
-      z-index: 2;
+      z-index: 3;
     }
 
     img {
@@ -98,42 +110,17 @@
       margin: 0 auto;
     }
 
-    /* #background-box {
-      position: absolute;
-      z-index: 2;
-      top: 0px;
-      left: 0px;
-      width: 90%;
-      height: 90%;
-      background-color: black;
-      transform: scale(14, 15);
-      opacity: 0.5;
-    } */
-
-    .btn {
-      background: none;
-      border: 2px solid rgb(116, 0, 0);
-      font: inherit;
-      letter-spacing: inherit;
-      height: 50px;
-      width: 200px;
-      text-transform: inherit;
-      transition: color 1s;
-      background-color: rgb(153, 0, 0);
-      color: white;
-      font-size: 130%;
+    .goToMovies{
+      color: black;
     }
-
-    .btn:hover {
-      background-color: rgb(116, 0, 0);
+    .goToMovies:hover {
       color: white;
     }
   </style>
 </head>
 <body>
   <div id="app" style="background-color: black">
-    <div id="white" style="width: 100%; height: 380px;">
-    
+    <div id="white" style="width: 100%; height: 375px;">
       <div class="container">
         <div class="mt-5 row">
           <h1 style="font-size: 500%; color:white;">Movie Palette</h1>
@@ -143,16 +130,16 @@
         </div>
         <!-- 영화 컬러칩-->
         <div class="chip-box row">
-          <div @click="largeColor" id="red" class="color-chip col-2" style="border-radius:50%; background-color: red;">
+          <div @click="largeColor" id="red" class="color-chip col-2" style="border-radius:50%; background-color: rgb(240, 1, 1);">
             <div v-if="seen" class="color-text">Romance</div>
           </div>
           <div @click="largeColor" id="yellow" class="color-chip col-2" style="border-radius:50%; background-color: yellow;">
-            <div v-if="seen" class="color-text">Animation</div>
+            <div v-if="seen" class="color-text">Comedy</div>
           </div>
           <div @click="largeColor" id="green" class="color-chip col-2" style="border-radius:50%; background-color: green;">
             <div v-if="seen" class="color-text">Docu</div>
           </div>
-          <div @click="largeColor" id="blue" class="color-chip col-2" style="border-radius:50%; background-color: blue;">
+          <div @click="largeColor" id="blue" class="color-chip col-2" style="border-radius:50%; background-color: rgb(38, 38, 236);">
             <div v-if="seen" class="color-text">Action</div>
           </div>
           <div @click="largeColor" id="purple" class="color-chip col-2" style="border-radius:50%; background-color: purple;">
@@ -161,7 +148,7 @@
           <div @click="largeColor" id="orange" class="color-chip col-2" style="border-radius:50%; background-color: orange;">
             <div v-if="seen" class="color-text">Family</div>
           </div>
-          <div @click="largeColor" id="greenYellow" class="color-chip col-2" style="border-radius:50%; background-color: greenyellow;">
+          <div @click="largeColor" id="greenYellow" class="color-chip col-2" style="border-radius:50%; background-color: rgb(177, 243, 77);">
             <div v-if="seen" class="color-text">Drama</div>
           </div>
           <div @click="largeColor" id="blueGreen" class="color-chip col-2" style="border-radius:50%; background-color: #005666;">
@@ -180,50 +167,295 @@
             <button @click="closeColor" v-if="!seen" id="x-button" type="button" class="btn-close"></button>
           </div>
           <div id="redMovie" class="movieList px-5" v-if="redSeen">
-            <div>
-              <div class="mb-4" style="color: white; font-size: 400%; border-bottom: 1px solid white">Red; Romance</div>
-              <div style="color: rgb(32, 32, 32); font-size: 150%; letter-spacing: 2px; line-height: 180%;">
-                열정의 red
+            <div class="m-0 p-0" style="color: rgb(49, 0, 0); font-size: 1000%; letter-spacing: 5px;">Red /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: rgb(240, 1, 1); letter-spacing: 5px; background-color: rgb(49, 0, 0); width: 98%; height: 51.78px; font-weight:900; text-align: end;">Romance</div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  c
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies1 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 1 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: rgb(49, 0, 0);" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
               </div>
             </div>
-            <div id="background-box"></div>
-              <div class="d-flex">
-                {% for poster in movies1 %}
-                  <!-- {{ poster.poster_path }} -->
-                  <img class="mx-3" src="{{ poster.poster_path }}" alt="">
-                {% endfor %}
-              </div>
-              <div class="d-flex justify-content-center">
-                <a href="#" role="button" class="btn mt-5">영화보러가기</a>
-              </div>
-              
-            </div>
+          </div>
           <div id="orangeMovie" class="movieList px-5" v-if="orangeSeen">
-            Orange; Family
+            <div class="m-0 p-0" style="color: rgb(49, 29, 0); font-size: 1000%; letter-spacing: 5px;">Orange /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: orange; background-color: rgb(49, 29, 0); letter-spacing: 5px; width: 98%; height: 51.78px; font-weight:900; text-align: end;">Family</div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    주황색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies2 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 2 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: rgb(49, 0, 0);" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="yellowMovie" class="movieList px-5" v-if="yellowSeen">
-            Yellow; Comedy
+            <div class="m-0 p-0" style="color: rgb(53, 53, 0); font-size: 1000%; letter-spacing: 5px;">Yellow /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: yellow; letter-spacing: 5px; background-color: rgb(53, 53, 0); width: 98%; height: 51.78px; font-weight:900; text-align: end;">Comedy</div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: rgb(22, 22, 22); width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    노란색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies3 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 3 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="greenYellowMovie" class="movieList px-5" v-if="greenYellowSeen">
-            Greenyellow; Drama
+            <div class="m-0 p-0" style="color: rgb(44, 63, 14); font-size: 1000%; letter-spacing: 5px;">Greenyellow /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: rgb(177, 243, 77);; letter-spacing: 5px; background-color: rgb(44, 63, 14); width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Drama
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: rgb(22, 22, 22); width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    연두색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies4 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 4 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="greenMovie" class="movieList px-5" v-if="greenSeen">
-            Green; Docu
+            <div class="m-0 p-0" style="color: rgb(0, 26, 0);  font-size: 1000%; letter-spacing: 5px;">Green /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: green; letter-spacing: 5px; background-color: rgb(0, 26, 0); width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Documentary
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    초록색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies5 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 5 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="blueGreenMovie" class="movieList px-5" v-if="blueGreenSeen">
-            Bluegreen; SF
+            <div class="m-0 p-0" style="color: #001316;  font-size: 1000%; letter-spacing: 5px;">Bluegreen /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: #005666; letter-spacing: 5px; background-color: #001316; width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              SF
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    진녹색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies6 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 6 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="blueMovie" class="movieList px-5" v-if="blueSeen">
-            Blue; Action
+            <div class="m-0 p-0" style="color: rgb(0, 0, 51);  font-size: 1000%; letter-spacing: 5px;">Blue /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: rgb(9, 9, 224); letter-spacing: 5px; background-color: rgb(0, 0, 51); width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Action
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    파란색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies7 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 7 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="darkBlueMovie" class="movieList px-5" v-if="darkBlueSeen">
-            Darkblue; Thriller
+            <div class="m-0 p-0" style="color: rgb(0, 0, 22);  font-size: 1000%; letter-spacing: 5px;">Darkblue /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: darkblue; letter-spacing: 5px; background-color: rgb(0, 0, 22); width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Thriller
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    남색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies8 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 8 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="purpleMovie" class="movieList px-5" v-if="purpleSeen">
-            Purple; Noir
+            <div class="m-0 p-0" style="color: rgb(22, 0, 22);  font-size: 1000%; letter-spacing: 5px;">Purple /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: purple; letter-spacing: 5px; background-color: rgb(22, 0, 22); width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Noir
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    보라색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies9 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 9 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
           <div id="redPurpleMovie" class="movieList px-5" v-if="redPurpleSeen">
-            Redpurple; Western
+            <div class="m-0 p-0" style="color: #1f000d;  font-size: 1000%; letter-spacing: 5px;">Redpurple /</div>
+            <div class="px-4 pt-0 pb-4 mt-0" style="font-size: 300%; color: #9B0143; letter-spacing: 5px; background-color: #1f000d; width: 98%; height: 51.78px; font-weight:900; text-align: end;">
+              Western
+            </div>
+            <div class="row">
+              <!-- 컬러와 장르 설명-->
+              <div class="col-5">
+                <div style="color: white; width: 97%; font-size: 120%; letter-spacing: 2px; line-height: 180%;">
+                  <div class="d-flex justify-content-center" style="margin-top: 5rem;" id="quote">"</div>
+                  <div class="px-3 d-flex justify-content-center" style="margin-left: 2rem;">
+                    자주색: 여기에 색 설명을 써주세요
+                  </div>
+                </div>
+              </div>
+              <!-- 포스터 이미지-->
+              <div class="mt-5 col-7">
+                <div class="mt-1" style="text-align:end; margin-right: 1rem;">
+                  {% for poster in movies10 %}
+                    <!-- {{ poster.poster_path }} -->
+                    <img class="mx-2 mb-3" src="{{ poster.poster_path }}" alt="">
+                  {% endfor %}
+                </div>
+                <a href="{% url "movies:movie_list" 10 %}" class="d-flex justify-content-end mt-3 text-decoration-none">
+                  <span class="goToMovies" style="font-size:130%; ">영화 보러 가기</span>
+                  <i style="font-size:130%; color: black;" class="fas fa-arrow-right mx-4 mt-1"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <!-- footer -->
