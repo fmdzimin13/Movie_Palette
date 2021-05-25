@@ -28,7 +28,7 @@ def create(request, movie_pk):
             review.user = request.user
             review.movie = movie
             review.save()      
-            return redirect('community:detail', review.pk)
+            return redirect('movies:movie_detail', movie.pk)
 
     else:
         form = ReviewForm()
@@ -110,7 +110,7 @@ def delete_comment(request, review_pk, comment_pk):
             comment.delete()
         return HttpResponseForbidden()
     return redirect('community:detail', review_pk)
-    # return HttpResponse(status=401)
+
 
 
 @require_POST

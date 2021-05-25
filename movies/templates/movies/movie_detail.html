@@ -17,7 +17,7 @@
 
     .review {
       display: inline-block; 
-      width: 500px; 
+      width: 950px; 
       white-space: nowrap; 
       overflow: hidden; 
       text-overflow: ellipsis;
@@ -82,59 +82,78 @@
       background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
       background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
+
+    .gotoReview{
+      color: dimgray;
+    }
+    .gotoReview:hover {
+      color: black;
+    }
   </style>
 
-  <div class="p-4 pt-5 mb-4 mx-0 mt-3" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
+  <div class="p-4 pt-5 mb-3 mx-0 mt-3" style="border-radius: 20px; background-color: rgba(255, 255, 255, 0.856);">
     <div class="row">
       <div class="col-5">
         <img src="{{ movie.poster_path }}" alt="">
       </div>
-      <div class="col-7">
+      <div class="col-6" style="margin-left: 3rem;">
         <h3 style="font-size: 400%;">{{ movie.title }}</h3>
-        영화 평점: {{ movie.vote_average }}
-        <div style="border-top: 1px solid grey;" class="mt-1">
+        <p class="mx-2">네티즌 평점 {{ movie.vote_average }} | 팔레트 평점 {{ avg_rank|floatformat }}</p>
+        <div style="border-top: 1px solid rgb(173, 173, 173); border-bottom: 1px solid rgb(173, 173, 173);" class="pt-2 pb-2 mb-0 mx-2">
+          <span style="font-weight: bold; color: rgb(70, 70, 70);">개봉</span><span class="mx-4">{{ movie.release_date }}</span><br>
+          <span style="font-weight: bold; color: rgb(70, 70, 70);">감독</span><span class="mx-4">{{ movie.director }}</span><br>
+          <span style="font-weight: bold; color: rgb(70, 70, 70);">출연</span><span class="mx-4">{{ movie.actors }}</span>
+        </div>
+        <div>
           <div class="d-flex justify-content-center" style="height: 95px; color: rgb(97, 97, 97);" id="quote">"</div>
           <div class="px-4 mx-1 d-flex justify-content-center">
             <p style="font-size: 110%; color: rgb(58, 58, 58); letter-spacing : 2px; line-height: 160%; text-align:justify;">{{ movie.overview }}</p>
           </div>
         </div>
-
-        <div class="w-100">
-          <a href="{% url 'community:create' movie.pk %}">리뷰작성</a><br>
-          <div class="list-group">
-            {% for review in movie.review_set.all %}
-              <a href="{% url 'community:detail' review.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
-                <div class="d-flex justify-content-between w-100 px-0">  
-                  <div class="col-1 pt-2" style="margin-right: 0.5rem; text-align: center;  width: 50px; height: 70px;">
-                    {% if review.rank >= 8 %}
-                      <h5 style="font-size: 180%;" class="mb-1">😍</h5>
-                    {% elif review.rank > 5 %}
-                      🙂
-                    {% else %}
-                      😞
-                    {% endif %}
-                    <p>{{ review.rank }}점</p>
-                  </div>
-                  <div class="col-11 mx-2 px-4" style="height: 65px; border-left: 1px solid lightgrey; padding: 10px 0px;">
-                    <div class="d-flex w-100 justify-content-between align-items-center">
-                      <h5 class="mb-1">{{ review.user }}</h5> 
-                      <span class="badge bg-secondary rounded-pill">{{ review.updated_at|naturaltime }}</span>
-                    </div>
-                    <div class="review ">
-                      <small class="mb-1" style="font-weight: bold;">"{{ review.title }}" | </small>
-                      <small>{{ review.content }}</small>
-                    </div>
-                  </div>
-    
-                </div>
-              </a>
-            {% endfor %} 
-          </div>
+        <div class="d-flex justify-content-end" style="margin-right: 2rem;">
+          <img  src="{{ drop }}" alt="">
         </div>
       </div>
+      <div class="w-100 mt-3">
+        <a href="{% url 'community:create' movie.pk %}" class="d-flex justify-content-end mt-3 mb-2 mx-2 text-decoration-none">
+          <span class="gotoReview" style="font-size:120%;">리뷰 작성하러 가기</span>
+          <i style="font-size:120%; color: dimgray;" class="fas fa-arrow-right mt-1 mx-3"></i>
+        </a>
+        <div class="list-group" style="margin-left: 1rem;">
+          {% for review in movie.review_set.all %}
+            <a href="{% url 'community:detail' review.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
+              <div class="d-flex justify-content-between w-100 px-0">  
+                <div class="col-1 pt-2" style="margin-left: 1rem; margin-right: 0.5rem; text-align: center;  width: 50px; height: 70px;">
+                  {% if review.rank >= 8 %}
+                    <h5 style="font-size: 180%;" class="mb-1">😍</h5>
+                  {% elif review.rank > 5 %}
+                    <h5 style="font-size: 180%;" class="mb-1">🙂</h5>
+                  {% else %}
+                    <h5 style="font-size: 180%;" class="mb-1">😭</h5>
+                  {% endif %}
+                  <p>{{ review.rank }}점</p>
+                </div>
+                <div class="col-11 mx-2 px-4" style="height: 65px; border-left: 1px solid lightgrey; padding: 10px 0px;">
+                  <div class="d-flex w-100 justify-content-between align-items-center">
+                    <h5 class="mb-1">{{ review.user }}</h5> 
+                    <span class="badge bg-secondary rounded-pill">{{ review.updated_at|naturaltime }}</span>
+                  </div>
+                  <div class="review ">
+                    <small class="mb-1" style="font-weight: bold;">"{{ review.title }}" | </small>
+                    <small>{{ review.content }}</small>
+                  </div>
+                </div>
+  
+              </div>
+            </a>
+          {% endfor %} 
+        </div>
+      </div>
+      </div>
     </div>
-    <!-- 리뷰 정보 -->
-    <a href="{% url 'movies:movie_list' movie.custom_genre %}" role="button" class="btn btn-light btn-lg">back</a>
+  </div>
+  <div class="d-flex justify-content-end ">
+    <a href="{% url 'movies:movie_list' movie.custom_genre %}" role="button" class="mx-2 mb-4 btn btn-light btn-lg">back</a>
   </div>
 <p style="opacity:0;" id="customGenre">{{ movie.custom_genre }}</p>
 

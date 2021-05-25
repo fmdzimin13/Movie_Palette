@@ -117,7 +117,7 @@
       <ul class="col-4 list-group list-group-flush">
       <p class="mb-3 lead">{{ person.username }}님의 게시글</p>
         {% for review in person.review_set.all %}
-          <li class="list-group-item">
+          <li class="list-group-item mx-5">
             <div>{{ review.title }}</div>
           </li>
         {% endfor %}
@@ -125,7 +125,7 @@
       <ul class="col-4 list-group list-group-flush">
         <p class="lead">{{ person.username }}님의 댓글</p>
         {% for comment in person.comment_set.all %}
-          <li class="list-group-item">
+          <li class="list-group-item mx-5">
             <div>{{ comment.content }}</div>
           </li>
         {% endfor %}
@@ -133,7 +133,7 @@
       <ul class="col-4 list-group list-group-flush">
         <p class="lead">{{ person.username }}님이 좋아한 리뷰</p>
         {% for review in person.like_reviews.all %}
-          <li class="list-group-item">
+          <li class="list-group-item mx-5">
             <div>{{ review.title }}</div>
           </li>
         {% endfor %}
@@ -168,7 +168,7 @@
       }).length >= 1) {
         const redCount = movies.filter(function (movie) {
           return movie.custom_genre === 1
-        }).length / count
+        }).length / count + 0.2
         console.log(redCount)
         const red = document.querySelector('#red')
         red.style.opacity = 0.1 + redCount
@@ -179,7 +179,7 @@
       }).length >= 1) {
         const orangeCount = movies.filter(function (movie) {
           return movie.custom_genre === 2
-        }).length / count
+        }).length / count + 0.2
         console.log(orangeCount)
         const orange = document.querySelector('#orange')
         orange.style.opacity = 0.1 + orangeCount
@@ -190,7 +190,7 @@
       }).length >= 1) {
         const yellowCount = movies.filter(function (movie) {
           return movie.custom_genre === 3
-        }).length / count
+        }).length / count + 0.2
         console.log(yellowCount)
         const yellow = document.querySelector('#yellow')
         yellow.style.opacity = 0.1 + yellowCount
@@ -201,7 +201,7 @@
       }).length >= 1) {
         const yellowgreenCount = movies.filter(function (movie) {
           return movie.custom_genre === 4
-        }).length / count
+        }).length / count + 0.2
         console.log(yellowgreenCount)
         const yellowgreen = document.querySelector('#yellowgreen')
         yellowgreen.style.opacity = 0.1 + yellowgreenCount
@@ -212,7 +212,7 @@
       }).length >= 1) {
         const greenCount = movies.filter(function (movie) {
           return movie.custom_genre === 5
-        }).length / count
+        }).length / count + 0.2
         console.log(greenCount)
         const green = document.querySelector('#green')
         green.style.opacity = 0.07 + greenCount
@@ -223,7 +223,7 @@
       }).length >= 1) {
         const bluegreenCount = movies.filter(function (movie) {
           return movie.custom_genre === 6
-        }).length / count
+        }).length / count + 0.2
         console.log(bluegreenCount)
         const bluegreen= document.querySelector('#bluegreen')
         bluegreen.style.opacity = 0.07 + bluegreenCount
@@ -234,7 +234,7 @@
       }).length >= 1) {
         const blueCount = movies.filter(function (movie) {
           return movie.custom_genre === 7
-        }).length / count
+        }).length / count + 0.2
         console.log(blueCount)
         const blue = document.querySelector('#blue')
         blue.style.opacity = 0.07 + blueCount
@@ -245,7 +245,7 @@
       }).length >= 1) {
         const darkblueCount = movies.filter(function (movie) {
           return movie.custom_genre === 8
-        }).length / count
+        }).length / count + 0.2
         console.log(darkblueCount)
         const darkblue = document.querySelector('#darkblue')
         darkblue.style.opacity = 0.07 + darkblueCount
@@ -256,7 +256,7 @@
       }).length >= 1) {
         const purpleCount = movies.filter(function (movie) {
           return movie.custom_genre === 9
-        }).length / count
+        }).length / count + 0.2
         console.log(purpleCount)
         const purple = document.querySelector('#purple')
         purple.style.opacity = 0.07 + purpleCount
@@ -267,7 +267,7 @@
       }).length >= 1) {
         const redpurpleCount = movies.filter(function (movie) {
           return movie.custom_genre === 10
-        }).length / count
+        }).length / count + 0.2
         console.log(redpurpleCount)
         const redpurple = document.querySelector('#redpurple')
         redpurple.style.opacity = 0.07 + redpurpleCount

@@ -17,65 +17,73 @@
   <link rel="stylesheet" href="{% static 'recommend/css/result.css' %}">
 </head>
 <body style="font-family: 'Jeju Myeongjo', serif;">
+  {% include "nav.html" %}
   <div class="container">
-    <!--시작 화면-->
-    <section id="main" class="mx-auto my-5 px-3 py-5">
-      <h3>Discover Your Personal COLOR</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione molestias, fugit dolor asperiores amet deleniti? Placeat deleniti dolorum voluptatum aut veniam, omnis corrupti ipsa debitis molestias sint et quo eius.</p>
-      <button type="button" id="start" class="btn btn-outline-primary mt-2">시작하기</button>
-    </section>
-    
-    <!--질문 화면-->
-    <section id="qna">
-      <div class="status mx-auto mt-5">
-        <div class="statusBar">
-        </div>
-      </div>
-      
-      <div class="qBox my-5 py-3 mx-auto">
-      </div>
-      
-      <div class="answerBox">
-      </div>
-    </section>
-    
-    <!--결과 화면-->
-    <section id="result" class="mx-auto my-5 px-3 py-5">
-      <h3>Your Personal COLOR is</h3>
+    <span class="m-0" style="position: absolute; top:110px; color: white; font-size: 150px;">Re</span>
+    <div class="position: absolute; d-flex justify-content-center mt-5">
+      <div class="px-2 mb-4" style="border-radius: 20px; width:70%; height:900px; background-color: white">
+        <div style="color: lightblue; font-size: 150px; height: 200px;">commend</div>
+        
+        <!--시작 화면-->
+        <section id="main" class="mx-auto my-5 px-3 py-5">
+          <h3>Discover Your Personal COLOR</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione molestias, fugit dolor asperiores amet deleniti? Placeat deleniti dolorum voluptatum aut veniam, omnis corrupti ipsa debitis molestias sint et quo eius.</p>
+          <button type="button" id="start" class="btn btn-outline-primary mt-2">시작하기</button>
+        </section>
+  
+        <!--질문 화면-->
+        <section id="qna">
+          <div class="status mx-auto mt-5">
+            <div class="statusBar">
+            </div>
+          </div>
+          
+          <div class="qBox my-5 py-3 mx-auto">
+          </div>
+          
+          <div class="answerBox">
+          </div>
+        </section>
+        
+        <!--결과 화면-->
+        <section id="result" class="mx-auto my-5 px-3 py-5">
+          <h3>Your Personal COLOR is</h3>
 
-      <div class="resultName">
+          <div class="resultName">
 
+          </div>
+
+          <div id="resultImg" class="my-3">
+          <div class="chipDiv">
+            <div class="colorChip mx-auto"></div>
+          </div>
+          </div>
+          
+          <div class="resultDesc">
+
+          </div>
+
+          <button id="again" type="button" onclick="js:again()">다시하기</button>
+          {% comment %} <form id="load-form" data-user-id="{{ person.pk }}">
+            {% csrf_token %}
+            <button type="button" id="load" class="btn btn-outline-primary mt-2">저장하기(get)</button>
+          </form> {% endcomment %}
+
+          <form id="load-post" data-user-id="{{ person.pk }}">
+            {% csrf_token %}
+            <button type="button" id="loadpost">저장하기</button>
+          </form>
+
+          
+          <div id="movieImg" class="mt-3">
+            <button type="button" id="movie">이런 영화 어때요?</button>
+            <div class="showMovies"></div>
+          </div>
+
+          <a href="{% url 'accounts:profile' person.username %}">내 프로필 보러가기</a>
+        </section>
       </div>
-
-      <div id="resultImg" class="my-3">
-      <div class="chipDiv">
-        <div class="colorChip mx-auto"></div>
-      </div>
-      </div>
-      
-      <div class="resultDesc">
-
-      </div>
-
-      <button id="again" type="button" onclick="js:again()">다시하기</button>
-      {% comment %} <form id="load-form" data-user-id="{{ person.pk }}">
-        {% csrf_token %}
-        <button type="button" id="load" class="btn btn-outline-primary mt-2">저장하기(get)</button>
-      </form> {% endcomment %}
-
-      <form id="load-post" data-user-id="{{ person.pk }}">
-        {% csrf_token %}
-        <button type="button" id="loadpost">저장하기</button>
-      </form>
-
-      
-      <div id="movieImg" class="mt-3">
-        <button type="button" id="movie">이런 영화 어때요?</button>
-        <div class="showMovies"></div>
-      </div>
-
-      <a href="{% url 'accounts:profile' person.username %}">내 프로필 보러가기</a>
-    </section>
+    </div>
   </div>
 {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
