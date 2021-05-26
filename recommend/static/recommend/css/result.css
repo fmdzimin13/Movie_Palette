@@ -107,7 +107,7 @@
 .showMovies > img {
   position: absolute;
   top: 0;
-  left: calc(24% - 100px);
+  left: calc(24% - 70px);
   opacity: 0;
   animation: display 10s infinite;
   height: 400px

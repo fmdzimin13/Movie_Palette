@@ -33,7 +33,7 @@
 <body style="background-color: rgb(241, 241, 243); font-family: 'Jeju Myeongjo', serif;">
 {% include "nav.html" %}
 {% with followings=person.followings.all followers=person.followers.all %}
-  <div class="container d-flex justify-content-center text-center" id="profile">
+  <div class="container mt-5 d-flex justify-content-center text-center" id="profile">
   <div class="row mb-5 pb-5" style="border-radius: 20px; width:80%; background-color: white">
     <div id="myColor" class="mt-5 offset-3 col-4" style="text-align:start; margin:0 auto; height: 420px; border: 1px solid rgb(194, 194, 194);">
       <div class="mt-2" style="height: 250px; background-color:{{ person.color_code|default:"rgb(241, 241, 243)" }}"></div> <!--{{ person.color_code|default:"rgb(241, 241, 243)" }}-->
@@ -53,16 +53,16 @@
       <p class="mx-3">{{ person.personal_color|default:"Find Your Color" }}</p>
     </div>
     <div class="mt-5 col-1 mx-2" style="height: 420px; border-left: 1.5px solid rgb(200, 200, 202);"></div>
-    <div id="followInfo" class="col-5" style="text-align:start; margin-top: 80px;">
+    <div id="followInfo" class="col-5" style="text-align:start; margin-top: 70px;">
       <p id="follow-count" class="lead mb-5">
         followings : {{ followings|length }} | followers : {{ followers|length }}
       </p>
-      <p>{{ person.review_set.all|length }} 개의 리뷰</p>
-      <p>{{ person.comment_set.all|length }} 개의 댓글</p>
-      <p>{{ person.like_movies.all|length }} 개의 영화</p>
+      <p class="lead">{{ person.review_set.all|length }} 개의 리뷰</p>
+      <p class="lead">{{ person.comment_set.all|length }} 개의 댓글</p>
+      <p class="lead">{{ person.like_movies.all|length }} 개의 영화</p>
       <!-- 팔레트 정보 -->
       <div class="mt-5">
-        <p>{{ person.username }}님의 movie palette</p>
+        <p class="lead">{{ person.username }}님의 movie palette</p>
         <div class="d-flex">
           <div id="red" class="color mx-1" style="border-radius:50%; width: 40px; height: 40px; background-color: red;"></div>
           <div id="yellow" class="color mx-1" style="border-radius:50%; width: 40px; height: 40px; background-color: yellow;"></div>

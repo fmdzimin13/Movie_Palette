@@ -54,6 +54,7 @@ class CommentForm(forms.ModelForm):
             attrs={
                 'placeholder': '댓글을 작성해주세요.',
                 'maxlength': 50,
+                'style': 'width: 150%; margin-right: 10px;',
             }
         ),
     )

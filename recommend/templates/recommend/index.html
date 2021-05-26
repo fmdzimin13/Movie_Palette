@@ -15,24 +15,60 @@
   <link rel="stylesheet" href="{% static 'recommend/css/qna.css' %}">
   <link rel="stylesheet" href="{% static 'recommend/css/animation.css' %}">
   <link rel="stylesheet" href="{% static 'recommend/css/result.css' %}">
+  <style>
+    #start {
+      background-color: white; 
+      border: 1px solid lightblue;
+    }
+
+    #start:hover {
+      background: #83a4d4;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #b6fbff, #83a4d4);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #b6fbff, #83a4d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      border: 0px solid lightblue;
+      color: white;
+    }
+
+    #end {
+      background-color: white; 
+      border: 1px solid dimgrey;
+    }
+
+    #end:hover {
+      background-color: grey;
+      border: 0px solid lightblue;
+      color: white;
+
+    body {
+      background-color: rgb(222, 231, 240);
+    }
+    }
+  </style>
 </head>
 <body style="font-family: 'Jeju Myeongjo', serif;">
   {% include "nav.html" %}
   <div class="container">
     <span class="m-0" style="position: absolute; top:110px; color: white; font-size: 150px;">Re</span>
     <div class="position: absolute; d-flex justify-content-center mt-5">
-      <div class="px-2 mb-4" style="border-radius: 20px; width:70%; height:900px; background-color: white">
+      <div id="white" class="px-2 mb-4" style="border-radius: 20px; width:70%; background-color: white">
         <div style="color: lightblue; font-size: 150px; height: 200px;">commend</div>
         
         <!--시작 화면-->
-        <section id="main" class="mx-auto my-5 px-3 py-5">
-          <h3>Discover Your Personal COLOR</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione molestias, fugit dolor asperiores amet deleniti? Placeat deleniti dolorum voluptatum aut veniam, omnis corrupti ipsa debitis molestias sint et quo eius.</p>
-          <button type="button" id="start" class="btn btn-outline-primary mt-2">시작하기</button>
+        <section id="main" class="mx-auto my-5 px-3" style="padding-bottom: 3rem;">
+          <h3 class="mb-5">What is my Personal COLOR</h3>
+          <p class="lead m-1">Movie Palette는 영화를 색으로 표현하고 있습니다.</p>
+          <p class="lead m-1">내가 선택한 영화의 색이 섞여 영화 취향을 나타내는 하나의 색이 되겠죠.</p>
+          <p class="lead m-1">당신의 영화 취향은 어떤 색인가요?</p>
+          <p class="lead m-1">당신의 색을 찾고 취향에 맞는 영화를 추천 받으세요!</p>
+          <div class="d-flex justify-content-center mt-5">
+            <button type="button" id="start" style="font-size: 150%; width: 80%;" class="font-weight-bold pt-3 pb-3 mt-2">
+              시작하기
+            </button>
+          </div>
         </section>
   
         <!--질문 화면-->
-        <section id="qna">
+        <section id="qna" class="mb-5">
           <div class="status mx-auto mt-5">
             <div class="statusBar">
             </div>
@@ -46,12 +82,9 @@
         </section>
         
         <!--결과 화면-->
-        <section id="result" class="mx-auto my-5 px-3 py-5">
+        <section id="result" class="mx-auto my-5 px-3">
           <h3>Your Personal COLOR is</h3>
-
-          <div class="resultName">
-
-          </div>
+          <div style="font-weight: bold;" class="resultName">""</div>
 
           <div id="resultImg" class="my-3">
           <div class="chipDiv">
@@ -59,9 +92,7 @@
           </div>
           </div>
           
-          <div class="resultDesc">
-
-          </div>
+          <div class="resultDesc"></div>
 
           <button id="again" type="button" onclick="js:again()">다시하기</button>
           {% comment %} <form id="load-form" data-user-id="{{ person.pk }}">
@@ -79,8 +110,9 @@
             <button type="button" id="movie">이런 영화 어때요?</button>
             <div class="showMovies"></div>
           </div>
-
-          <a href="{% url 'accounts:profile' person.username %}">내 프로필 보러가기</a>
+          <div class="d-flex justify-content-center mt-5">
+             <a id="end" href="{% url 'accounts:profile' person.username %}" role="button" style="text-decoration: none; font-size: 150%; width: 80%;" class="font-weight-bold pt-3 pb-3 mt-2">내 프로필 보러가기</a>
+          </div>
         </section>
       </div>
     </div>
