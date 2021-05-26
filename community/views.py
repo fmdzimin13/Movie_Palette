@@ -29,7 +29,7 @@ def create(request, movie_pk):
             review.user = request.user
             review.movie = movie
             review.save()      
-            return redirect('movies:movie_detail', review.pk)
+            return redirect('movies:movie_detail', movie.pk)
 
     else:
         form = ReviewForm()
