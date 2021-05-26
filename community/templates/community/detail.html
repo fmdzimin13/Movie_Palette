@@ -3,7 +3,7 @@
 {% load bootstrap5 %}
 
 {% block content %}
-  <div class="mt-5" style="border: 1px solid rgb(196, 196, 196); border-radius: 20px; width:70%;  margin: 0 auto;">
+  <div id="reviewDetail" class="mt-5" style="border: 1px solid rgb(196, 196, 196); border-radius: 20px; width:70%;  margin: 0 auto;">
     <small class="d-flex justify-content-start m-2 mb-3" style="padding-left: 1.5rem;">created by {{ review.user }} / {{ review.created_at|naturalday }}</small>
     <div class="d-flex px-4" style="background-color: rgba(211, 211, 211, 0.63);">
       <h3 class="m-2">{{ review.title }}</h3>
@@ -60,6 +60,9 @@
         <input class="btn btn-outline-secondary" type="submit" value="DELETE">
       </div>
     </form>
-    <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a> 
+    {% comment %} <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>  {% endcomment %}
+    <input type="button" value="BACK" onClick="history.go(-1)">
   </div>
+
+
 {% endblock %}

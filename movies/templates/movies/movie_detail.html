@@ -133,7 +133,7 @@
         <span class="gotoReview" style="font-size:120%;">리뷰 작성하러 가기</span>
         <i style="font-size:120%; color: dimgray;" class="fas fa-arrow-right mt-1 mx-3"></i>
       </a>
-      <div class="list-group w-100 px-4" style="margin-left: 1.5rem;">
+      <div class="list-group w-100 px-4 mb-3" style="margin-left: 1.5rem;">
         {% for review in movie.review_set.all %}
           <a href="{% url 'community:detail' review.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
             <div class="d-flex justify-content-between w-100 px-0">  
