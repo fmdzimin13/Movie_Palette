@@ -52,6 +52,7 @@ function calculation () {
 
 
 function setResult() {
+
   let point = calculation()
   const resultName = document.querySelector('.resultName')
   resultName.innerHTML = infoList[point].name
@@ -76,6 +77,7 @@ function setResult() {
 
 //결과창 띄우는 함수
 function goResult () {
+  
   qna.style.WebkitAnimation = "fadeOut 1s"
   qna.style.animation = "fadeOut 1s"
   setTimeout(() => {
