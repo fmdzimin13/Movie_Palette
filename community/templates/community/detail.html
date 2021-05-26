@@ -66,14 +66,10 @@
       {% comment %} <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>  {% endcomment %}
       <input type="button" value="BACK" onClick="history.go(-1)">
     </div>
-  {% else %}
+  {% endif %}
     <div class="d-flex justify-content-end mt-3" style="margin-right: 13rem;">
       {% comment %} <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>  {% endcomment %}
-      <input type="button" value="BACK" onClick="history.go(-1)">
+      <input onClick="history.go(-1)" value="BACK" class="btn btn-outline-secondary">
     </div>
-  {% endif %}
-  
-  </div>
-
 
 {% endblock %}
