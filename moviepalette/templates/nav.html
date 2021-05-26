@@ -1,9 +1,13 @@
 {% load bootstrap5 %}
 <div style="p-0">
   <div class="d-flex justify-content-center mt-1">
-    <a href="{% url 'movies:home' %}"  title="HOME" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></a>
+    <a href="{% url 'movies:index' %}"  title="HOME" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></a>
     <a href="{% url 'movies:about' %}" title="ABOUT" style="border-radius:50%; width: 20px; height: 20px; background-color: orange;"></a>
-    <a href="{% url 'accounts:profile' user.username %}" title="MY PAGE" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></a>
+    {% if request.user is authenticated %}
+      <a href="{% url 'accounts:profile' user.username %}" title="MY PAGE" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></a>
+    {% else %}
+      <a href="{% url 'accounts:login' %}" title="LOGIN" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></a>
+    {% endif %}
     <a href="{% url 'recommend:index' %}" title="RECOMMEND" style="border-radius:50%; width: 20px; height: 20px; background-color: green;"></a>
     <a href="{% url 'community:index' %}" title="COMMUNITY" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: darkblue;"></a>
 

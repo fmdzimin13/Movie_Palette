@@ -71,7 +71,7 @@ def add_info():
         url = f'https://openapi.naver.com/v1/search/movie.json?query={query}'
         res = requests.get(url, headers=header_parms)
         data = res.json()
-        pprint(data)
+        # pprint(data)
         # print(data.get('items')[0])
         if data.get('items'):
             movie.subtitle = data.get('items')[0].get('subtitle')
@@ -82,6 +82,8 @@ def add_info():
 
 @require_safe
 def home(request):
+    # 아래 두 코드는 제출 시에 주석 풀기(db제출하니까 주석처리하고 넣어도 되겠다!)
+    # load_movie_data()
     # add_info()
     movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:3]
     movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:3]
@@ -109,18 +111,40 @@ def home(request):
     return render(request, 'movies/home.html', context)
 
 
+@require_safe
 def index(request):
-    movies = Movie.objects.all()
+    movies1 = Movie.objects.filter(custom_genre=1).values('poster_path')[:3]
+    movies2 = Movie.objects.filter(custom_genre=2).values('poster_path')[:3]
+    movies3 = Movie.objects.filter(custom_genre=3).values('poster_path')[:3]
+    movies4 = Movie.objects.filter(custom_genre=4).values('poster_path')[:3]
+    movies5 = Movie.objects.filter(custom_genre=5).values('poster_path')[:3]
+    movies6 = Movie.objects.filter(custom_genre=6).values('poster_path')[:3]
+    movies7 = Movie.objects.filter(custom_genre=7).values('poster_path')[:3]
+    movies8 = Movie.objects.filter(custom_genre=8).values('poster_path')[:3]
+    movies9 = Movie.objects.filter(custom_genre=9).values('poster_path')[:3]
+    movies10 = Movie.objects.filter(custom_genre=10).values('poster_path')[:3]
+
     context = {
-        'movies': movies,
+        'movies1': movies1,
+        'movies2': movies2,
+        'movies3': movies3,
+        'movies4': movies4,
+        'movies5': movies5,
+        'movies6': movies6,
+        'movies7': movies7,
+        'movies8': movies8,
+        'movies9': movies9,
+        'movies10': movies10,
     }
     return render(request, 'movies/index.html', context)
 
 
+@require_safe
 def about(request):
     return render(request, 'movies/about.html')
 
 
+@require_safe
 def movie_list(request, custom_genre):
     movies_red = Movie.objects.filter(custom_genre=1)
     movies_orange = Movie.objects.filter(custom_genre=2)
@@ -170,7 +194,6 @@ def wordcloud_upload(request, movie_pk):
         if form.is_valid():
             form.save()
             return redirect('movies:movie_list', movie.custom_genre)
-    # edit
     else:
         form = MovieForm(instance=movie)
     context = {
@@ -209,7 +232,7 @@ def like(request, movie_pk):
             'likeCount': movie.like.count()
         }
         return JsonResponse(liked_status)
-    return HttpResponse(status=401)
+    return HttpResponse(status=401) #아니면 로그인으로 리다이렉트
 
 
 

@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_GET, require_POST, require_http_methods
+from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from movies.models import Movie
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse, HttpResponse
+from django.contrib.auth.decorators import login_required 
 
 
+#@login_required // 아니면 html에서 저장하기, 프로필로 이동 안 보이게 하고 회원가입, 로그인을 넣는다거나
 def index(request):
     person = request.user
     context = {
@@ -14,6 +16,7 @@ def index(request):
     return render(request, 'recommend/index.html', context)
 
 
+@require_safe
 def load_color(request):
     print(request.GET)
     personal_color = request.GET.get('name')
@@ -41,6 +44,7 @@ def load(request):
     return JsonResponse(message)
 
 
+@require_safe
 def get_movies(request):
     recommend_genre1 = request.GET.get('target_genre1')
     recommend_genre2 = request.GET.get('target_genre2')

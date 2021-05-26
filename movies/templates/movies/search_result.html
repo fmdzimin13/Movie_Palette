@@ -1,17 +1,57 @@
-{% extends 'community_base.html' %}
+{% load bootstrap5 %}
+{% load static %}
 
-{% block content %}
-  <h2>'{{ keyword }}' 검색 결과</h2>
-  <p>{{ reviews|length }}개의 게시글</p>
-  <hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css">
+  <script src="https://kit.fontawesome.com/caed28bd65.js" crossorigin="anonymous"></script>
+  {% bootstrap_css %}
+  <title>Document</title>
+</head>
+<body style="background-color: rgb(229, 228, 236); font-family: 'Jeju Myeongjo', serif;">
+  {% include "nav.html" %}
+  <div class="container">
+    <span class="m-0" style="position: absolute; top:110px; color: white; font-size: 150px;">Se</span>
+    <div class="position: absolute; d-flex justify-content-center mt-5">
+      <div class="px-2 mb-4" style="border-radius: 20px; width:70%; background-color: white">
+        <div style="color: rgb(229, 228, 236); font-size: 150px; height: 200px;">arch</div>
+        <div class="text-center mt-2 px-3">
+          <h3 style="color: rgb(209, 207, 219)">'{{ keyword }}' 검색 결과</h3>
+          <h5 style="color: grey">{{ movies|length }}개의 결과가 검색되었습니다.</h5>
+          <div class="mb-4 mt-4 mx-5" style="border-top: 1.5px solid rgb(209, 207, 219);"></div>
+            <span class="lead" style="margin: 0 auto; background-color: rgb(229, 228, 236);">{{ title }}</span>
+            <h4 class="mt-2">/</h4>
+            <div class="list-group" style="margin-left: 1rem;">
+              {% for movie in movies %}
+                <a href="{% url 'movies:movie_detail' movie.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
+                  <div class="d-flex justify-content-between w-100 px-0">  
+                    <div class="col-1 pt-2" style="margin-left: 1rem; margin-right: 0.5rem; text-align: center;  width: 50px; height: 70px;">
+                        <h5 style="font-size: 180%;" class="mt-1 me-2">🎬</h5>
+                    </div>
+                    <div class="col-11 mx-2 px-4" style="height: 65px; border-left: 1px solid lightgrey; padding: 10px 0px;">
+                      <div class="d-flex w-100 justify-content-between align-items-center">
+                        <h5 class="mb-1">{{ movie.title }}</h5> 
+                        <span class="badge bg-secondary rounded-pill mt-2">{{ movie.vote_average }}</span>
+                      </div>
+                      <div class="momo">
+                        <small class="mb-1 ms-5" style="font-weight: bold;"> director: {{ movie.director }}</small>
+                        <small class="mt-1 me-5">actors: {{ movie.actors }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              {% endfor %} 
+            </div>
 
-  {% for review in reviews %}
-    <p>{{ review.pk }}번 게시글</p>
-    <h3>게시글 제목:  <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a></h3><br>
-    <p>{{ review.content }}</p>
-    <p>{{ review.like_users.all|length }}명이 좋아요를 눌렀습니다.</p>
-    <p>{{ review.comment_set.all|length }}개의 댓글</p>
-    <hr>
-  {% endfor %}
-  <a href="{% url 'community:index' %}">[back]</a>
-{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% bootstrap_javascript %}
+</body>
+</html>
+
