@@ -16,6 +16,18 @@
   <link rel="stylesheet" href="{% static 'recommend/css/animation.css' %}">
   <link rel="stylesheet" href="{% static 'recommend/css/result.css' %}">
   <style>
+    @font-face {
+      font-family: 'CHONBUKL';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/CHONBUKL.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    #quote {
+      font-family: 'CHONBUKL';
+      font-size: 800%;
+    }
+
     #start {
       background-color: white; 
       border: 1px solid lightblue;
@@ -91,8 +103,13 @@
             <div class="colorChip mx-auto"></div>
           </div>
           </div>
-          
-          <div class="resultDesc"></div>
+
+          <div class="text-center"  style="color: dimgrey; width: 97%; letter-spacing: 2px; line-height: 180%;">
+            <div style="font-size: 400%; margin-top: 2rem; margin-left: 3%;" id="quote">"</div>
+            <div class="px-3" style="margin-left: 2rem;">
+              <div class="resultDesc"></div>
+            </div>
+          </div>
 
           <button id="again" type="button" onclick="js:again()">다시하기</button>
           {% comment %} <form id="load-form" data-user-id="{{ person.pk }}">
