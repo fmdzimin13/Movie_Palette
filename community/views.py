@@ -29,7 +29,7 @@ def create(request, movie_pk):
             review.user = request.user
             review.movie = movie
             review.save()      
-            return redirect('movies:movie_detail', movie.pk)
+            return redirect('movies:movie_detail', review.pk)
 
     else:
         form = ReviewForm()
@@ -41,6 +41,7 @@ def create(request, movie_pk):
     return render(request, 'community/create.html', context)
 
 
+@login_required
 @require_GET
 def detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)

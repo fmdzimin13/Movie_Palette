@@ -120,9 +120,13 @@
     <div class="container px-0">
       <div style="width: 100%; height: 50px;">
         <div class="d-flex justify-content-center mt-1">
-          <a href="{% url 'movies:index' %}"  title="HOME" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></a>
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'accounts:logout' %}"  title="LOGOUT" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></a>
+          {% else %}
+            <a href="{% url 'accounts:signup' %}"  title="SIGNUP" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: red;"></a>
+          {% endif %}
           <a href="{% url 'movies:about' %}" title="ABOUT" style="border-radius:50%; width: 20px; height: 20px; background-color: orange;"></a>
-          {% if request.user is authenticated %}
+          {% if request.user.is_authenticated %}
             <a href="{% url 'accounts:profile' user.username %}" title="MY PAGE" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></a>
           {% else %}
             <a href="{% url 'accounts:login' %}" title="LOGIN" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: yellow;"></a>
@@ -130,9 +134,9 @@
           <a href="{% url 'recommend:index' %}" title="RECOMMEND" style="border-radius:50%; width: 20px; height: 20px; background-color: green;"></a>
           <a href="{% url 'community:index' %}" title="COMMUNITY" class="mx-1" style="border-radius:50%; width: 20px; height: 20px; background-color: darkblue;"></a>
         </div>
-        <div class="d-flex justify-content-center mt-2 mb-0" style="color: #353535; letter-spacing :5px;">
+        <a href="{% url 'movies:index' %}" title="HOME" class="d-flex justify-content-center mt-2 mb-0" style="text-decoration: none; color: #353535; letter-spacing :5px;">
           <h5>Movie Palette</h5>
-        </div>
+        </a>
       </div>
       {% if custom_genre == 1 %}
         <span class="m-0 p-0" style="color: black; font-size: 1000%; letter-spacing: 5px;">Red</span>

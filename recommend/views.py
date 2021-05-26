@@ -1,3 +1,4 @@
+from accounts.views import login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_safe, require_POST, require_http_methods
 from movies.models import Movie
@@ -32,10 +33,12 @@ def load_color(request):
     return JsonResponse(message)
 
 
-@require_POST
+@login_required
+# @require_POST
 def load(request):
     print(request.POST)
-    if request.user.is_authenticated:
+    if request.method == 'POST':
+    # if request.user.is_authenticated:
         user = request.user
         user.personal_color = request.POST.get('personal_color')
         user.color_code = request.POST.get('color_code')

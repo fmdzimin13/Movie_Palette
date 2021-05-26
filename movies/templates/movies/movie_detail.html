@@ -134,7 +134,7 @@
         <i style="font-size:120%; color: dimgray;" class="fas fa-arrow-right mt-1 mx-3"></i>
       </a>
       <div class="list-group w-100 px-4" style="margin-left: 1.5rem;">
-        {% for review in movie.review_set.all %}
+        {% for review in movie.review_set.all %}        
           <a href="{% url 'community:detail' review.pk %}" class="row list-group-item list-group-item-action" style="height: 80px;" aria-current="true">
             <div class="d-flex justify-content-between w-100 px-0">  
               <div class="col-1 pt-2" style="margin-left: 1rem; margin-right: 0.5rem; text-align: center;  width: 50px; height: 70px;">
@@ -231,17 +231,17 @@
       }
       console.log(params)
       
-      axios({
-        url: API_URL,
-        method: 'get',
-        params,
-      })
-      .then(function (res) {
-        console.log(res.data.items[0].id)
-        const videoURI = res.data.items[0].id.videoId
-        console.log(videoURI)
-        iframe.src = 'https://www.youtube.com/embed/' + videoURI
-      })
+      // axios({
+      //   url: API_URL,
+      //   method: 'get',
+      //   params,
+      // })
+      // .then(function (res) {
+      //   console.log(res.data.items[0].id)
+      //   const videoURI = res.data.items[0].id.videoId
+      //   console.log(videoURI)
+      //   iframe.src = 'https://www.youtube.com/embed/' + videoURI
+      // })
 
     })
   }
