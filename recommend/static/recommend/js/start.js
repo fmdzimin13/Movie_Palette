@@ -67,9 +67,14 @@ function setResult() {
   // resultImg.src = imgURL
   // resultImg.alt = point
   // imgDiv.appendChild(resultImg)
-
+  console.log(point)
+  console.log(infoList[point].desc)
+  console.log(infoList[point].desc1)
   const resultDesc = document.querySelector('.resultDesc')
   resultDesc.innerHTML = infoList[point].desc
+  
+  const resultDesc1 = document.querySelector('.resultDesc1')
+  resultDesc1.innerHTML = infoList[point].desc1
 }
 
 
@@ -210,7 +215,9 @@ const data = new FormData()
       data,
     })
     .then(function (response) {
-      console.log(response)
+      console.log(response.data.content)
+      const p = document.querySelector('#responseMessage')
+      p.innerHTML = response.data.content
     })
     .catch(function (error) {
       console.log(error)

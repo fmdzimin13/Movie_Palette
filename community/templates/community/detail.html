@@ -63,11 +63,17 @@
           <input class="btn btn-outline-secondary" type="submit" value="DELETE">
         </div>
       </form>
-      <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a> 
+      {% comment %} <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>  {% endcomment %}
+      <input type="button" value="BACK" onClick="history.go(-1)">
     </div>
   {% else %}
     <div class="d-flex justify-content-end mt-3" style="margin-right: 13rem;">
-      <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a> 
+      {% comment %} <a href="{% url 'community:index' %}" class="btn btn-outline-secondary">BACK</a>  {% endcomment %}
+      <input type="button" value="BACK" onClick="history.go(-1)">
     </div>
   {% endif %}
+  
+  </div>
+
+
 {% endblock %}

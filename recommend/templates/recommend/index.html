@@ -108,6 +108,9 @@
             <div style="font-size: 400%; margin-top: 2rem; margin-left: 3%;" id="quote">"</div>
             <div class="px-3" style="margin-left: 2rem;">
               <div class="resultDesc"></div>
+              <div class="resultDesc1"></div>
+              <div></div>
+              <br>
             </div>
           </div>
 
@@ -122,21 +125,20 @@
               {% csrf_token %}
               <button type="button" id="loadpost">저장하기</button>
             </form>
+            <div id="responseMessage"></div>
           {% else %}
             <div>
-              <a href="#" class="mt-1 text-info" style="text-decoration:none">결과를 저장하고 싶다면 로그인을 해주세요</a>
-              <form id="load-post" data-user-id="{{ person.pk }}">
-                {% csrf_token %}
-                <button type="button" id="loadpost">저장하기</button>
-              </form>    
+              <p class="text-info lead m-1" >나만의 팔레트 수집하기, 영화 추천받기 등</p>  
+              <p class="text-info lead m-1">더 많은 서비스를 즐기고 싶다면 회원가입/로그인을 해주세요</p>  
             </div>
           {% endif %}
 
-          
-          <div id="movieImg" class="mt-3">
-            <button type="button" id="movie">이런 영화 어때요?</button>
-            <div class="showMovies"></div>
-          </div>
+          {% if request.user.is_authenticated %}
+            <div id="movieImg" class="mt-3">
+              <button type="button" id="movie">이런 영화 어때요?</button>
+              <div class="showMovies"></div>
+            </div>   
+          {% endif %}
 
           {% if request.user.is_authenticated %}
             <div class="d-flex justify-content-center mt-5">

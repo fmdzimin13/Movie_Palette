@@ -240,6 +240,6 @@ def get_movie(request):
     movie_pk = request.GET.get('moviepk')
     movie = get_object_or_404(Movie, pk=movie_pk)
     query = movie.title + ' ' + 'movie trailer'
-    print(query)
+    # print(query)
     context = {'query': query}
     return JsonResponse(context)
