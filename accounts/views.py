@@ -19,7 +19,7 @@ def login(request):
         form = LoginForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(request.GET.get('next') or 'movies:home')
+            return redirect(request.GET.get('next') or 'movies:index')
     else:
         form = LoginForm()
     context = {
@@ -32,7 +32,7 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return redirect('movies:home')
+    return redirect('movies:index')
 
 
 @require_http_methods(['GET', 'POST'])
@@ -86,11 +86,12 @@ def follow(request, user_pk):
         return JsonResponse(follow_status)
 
 
+@require_safe
 def get_movies(request):
     username = request.GET.get('username')
     person = get_object_or_404(get_user_model(), username=username)
     movies = person.like_movies.all().values()
-    print(movies)
+    # print(movies)
     mylike = list(movies)
 
     return JsonResponse(mylike, safe=False)

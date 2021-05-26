@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 
 
+@login_required
 @require_GET
 def index(request):
     reviews = Review.objects.order_by('-pk')
@@ -17,7 +18,7 @@ def index(request):
     return render(request, 'community/index.html', context)
 
 
-# @login_required
+@login_required
 @require_http_methods(['GET', 'POST'])
 def create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -35,6 +36,7 @@ def create(request, movie_pk):
     context = {
         'form': form,
         'title': movie.title,
+        'movie': movie,
     }
     return render(request, 'community/create.html', context)
 
@@ -108,7 +110,7 @@ def delete_comment(request, review_pk, comment_pk):
         comment = get_object_or_404(Comment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
-        return HttpResponseForbidden()
+        # return HttpResponseForbidden()
     return redirect('community:detail', review_pk)
 
 

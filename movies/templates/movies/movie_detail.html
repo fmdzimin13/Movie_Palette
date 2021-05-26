@@ -220,6 +220,7 @@
       const dict = res.data
       console.log(dict.query)
       const query = dict.query
+      console.log(query)
 
       const API_KEY = 'AIzaSyBoRcoDXtTX17xghBnv2o4faswjfOSESBQ'
       const API_URL = 'https://www.googleapis.com/youtube/v3/search'
@@ -229,7 +230,8 @@
         type: 'video',
         q: query,
       }
-
+      console.log(params)
+      
       axios({
         url: API_URL,
         method: 'get',

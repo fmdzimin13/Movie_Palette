@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse mb-0" id="navbarToggleExternalContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">
+          <a class="nav-link active" aria-current="page" href="{% url 'movies:index' %}">
             <h4 class="px-2" style="color:white;">HOME</h4>
           </a>
         </li>
@@ -42,7 +42,7 @@
           </div>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{% url 'recommend:index' %}">
             <h4 class="px-2" style="color:black;">RECOMMEND</h4>
           </a>
         </li>
