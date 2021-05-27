@@ -6,10 +6,11 @@ from pprint import pprint
 from .models import Movie
 from .forms import MovieForm
 from django.db.models import Avg
+from decouple import config
 
 
 API_URL = 'https://api.themoviedb.org/3'
-API_KEY = 'a4f4fe301a6ed6249fc06484ad844067'
+API_KEY = config('TMDB_API_KEY')
 
 
 def get_url(category='movie', feature='', **kwargs):
@@ -59,8 +60,8 @@ def load_movie_data():
 
 
 # 네이버 api 배우, 감독 정보 추가
-client_id = 'vwPIJqyIOemmmfcDFFmi'
-client_secret = 'dn5XCPlugY'
+client_id = config('NAVER_CLIENT_ID')
+client_secret = config('NAVER_CLIENT_SECRET')
 
 header_parms = {'X-Naver-Client-Id': client_id, 'X-Naver-Client-Secret': client_secret}
 
