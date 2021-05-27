@@ -45,9 +45,9 @@ Django + Vanilla JS의 아키텍쳐를 가져가는 만큼, 경계가 뚜렷하�
 
 #### 모델
 
-![usecase](README_part0.assets/usecase.png)
+![usecase](README.assets/usecase.png)
 
-![erd_fianl](README_part0.assets/erd_fianl-1622112814197.png)
+![erd_fianl](README.assets/erd_fianl-1622112814197.png)
 
 <br>
 
@@ -67,7 +67,7 @@ Django + Vanilla JS의 아키텍쳐를 가져가는 만큼, 경계가 뚜렷하�
 
 ##### 1. NAV BAR
 
-![navbar](README_part0.assets/navbar.png)
+![navbar](README.assets/navbar.png)
 
 
 
@@ -87,7 +87,7 @@ Django + Vanilla JS의 아키텍쳐를 가져가는 만큼, 경계가 뚜렷하�
 
 ##### 2. Wordcloud
 
-![wordcloud](README_part0.assets/wordcloud.png) ![wordcloud2](README_part0.assets/wordcloud2.png)
+![wordcloud](README.assets/wordcloud.png) ![wordcloud2](README.assets/wordcloud2.png)
 
 데이터 크롤링을 활용해 네이버 영화 리뷰 페이지에서 리뷰를 추출한다. 이를 우리 사이트에서 설정한 장르 색에 맞춰 워드 클라우드로 변환시키는 작업을 거친 후, 영화 목록 페이지에서 사용자가 영화 포스터에 마우스 커서를 올리면 확인할 수 있도록 설계
 
@@ -106,8 +106,8 @@ Django + Vanilla JS의 아키텍쳐를 가져가는 만큼, 경계가 뚜렷하�
       plt.show(block=False)
       plt.pause(0.3)
       plt.close()
-  ```
-    
+```
+
 # NoSuchElementException?
 - 원인: 해당 영화를 검색하고 다음 페이지로 넘어갔을 때, 영화가 존재하지 않아서 관련 태그(btn_srch, result_thumb)가 존재하지 않아 생기는 문제
 - 해결 : try - except 문
@@ -134,7 +134,7 @@ Django + Vanilla JS의 아키텍쳐를 가져가는 만큼, 경계가 뚜렷하�
 
 우리가 저장한 영화 객체들을 가져와 제목을 검색으로 넘겨 크롤링을 진행시키려 했는데, 마주한 또다른 에러 상황
 
-```python
+​```python
 # ImportError?
 
 - 원인: Django에 기본으로 설정된 파일 이름이 아닌 다른 이름의 파일을 만들었기에, Django가 해당 파일을 읽어오지 못해 발생하는 오류였다. 같은 파일 트리 내에 있다고 같이 관리되는 게 아님. 기존 장고 프로젝트 따로, 우리가 만든 파일 따로.
@@ -153,7 +153,7 @@ from 앱이름.models import 모델이름
 
 ##### 3. Recommend
 
-![recommend_1](README_part0.assets/recommend_1.png)
+![recommend_1](README.assets/recommend_1.png)
 
 사용자에게 9개의 질문을 제공한 후, 사용자의 응답에 따라 나온 결과값으로 `나만의 색` 추천 및 해당 색과 어울리는 `영화 추천 서비스`
 
@@ -235,7 +235,7 @@ const data = new FormData()
 
 ##### 4. Movie Palette
 
-  ![(null)](README_part0.assets/cif00001.png)  Profile 페이지에 들어가면 확인할 수 있는 나만의 영화 팔레트
+  ![(null)](README.assets/cif00001.png)  Profile 페이지에 들어가면 확인할 수 있는 나만의 영화 팔레트
 
 - DB에 axios를 사용해 사용자가 좋아요한 영화에 대한 정보 요청
 - 응답받은 정보를 기반으로 팔레트의 투명도 계산 진행 (장르별 비율에 따라 달라지는 투명도)
@@ -292,7 +292,7 @@ window.onload = function (event) {
 
 장고에서 기본적으로 제공해주는 ADMIN 페이지 활용. LIST_DISPLAY 속성을 통해 표를 볼 때 조금 사람 친화적으로 보이게끔 수정
 
-![admin_1](README_part0.assets/admin_1.png)
+![admin_1](README.assets/admin_1.png)
 
 
 
@@ -372,7 +372,7 @@ def add_info():
 - 영화 상세 페이지에서 해당 영화에 대한 평점을 등록 (리뷰 작성 바로가기를 통해)
 - 영화에 대한 리뷰 상세 페이지에서 유저는 평점을 수정하거나 삭제할 수 있다
 
-![movie_detail_1](README_part0.assets/movie_detail_1.png)
+![movie_detail_1](README.assets/movie_detail_1.png)
 
 <br>
 
@@ -394,7 +394,7 @@ def add_info():
 
 해당 영화의 커스텀 장르 색이 라벨링 되어있다 / 해당 기능을 통해 커뮤니티 페이지에서도 장르 구분이 가능하다/ 이후 기능적으로 확장해나갈 수 있는 지점이라 생각(장르별로 리뷰를 묶어서 보일 수도 있어진다)
 
-  ![(null)](README_part0.assets/cif00001-1622121961839.png)  
+  ![(null)](README.assets/cif00001-1622121961839.png)  
 
 <Br>
 
