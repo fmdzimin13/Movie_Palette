@@ -117,7 +117,15 @@
         <div class="video-container mx-0 d-flex">
           <div class="embed-responsive embed-responsive-16by9">
             {% comment %} <img style="width: 275px;" src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F05jk8%2FbtqFNhPwZ8D%2FKSyAaHOZKrXHsq56K731e1%2Fimg.png" alt=""> {% endcomment %}
+<<<<<<< HEAD
+            <iframe class="embed-responsive-item" style="margin-left: 1rem; width: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
+=======
+<<<<<<< HEAD
+            <iframe class="embed-responsive-item" style="margin-left: 1rem; width: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
+=======
             <iframe class="embed-responsive-item" style="margin-left: 1rem;  width: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
+>>>>>>> 86aded1d69f11a5fb54f0c9c13824ffa978f23bb
+>>>>>>> chaeeun
           </div>
           <div class="">
             <img style="margin-left: 1rem;" src="{{ drop }}" alt="">
@@ -222,7 +230,7 @@
       console.log(query)
 
       // const API_KEY = 'AIzaSyBoRcoDXtTX17xghBnv2o4faswjfOSESBQ' // 지민
-      // const API_KEY = 'AIzaSyDfPuDrF0vF9ojrrvvM1JbMGtPENRkl1_Q' // 채은
+      const API_KEY = 'AIzaSyDfPuDrF0vF9ojrrvvM1JbMGtPENRkl1_Q' // 채은
       const API_URL = 'https://www.googleapis.com/youtube/v3/search'
       const params = {
         key: API_KEY,
@@ -232,37 +240,20 @@
       }
       console.log(params)
       
-      // axios({
-      //   url: API_URL,
-      //   method: 'get',
-      //   params,
-      // })
-      // .then(function (res) {
-      //   console.log(res.data.items[0].id)
-      //   const videoURI = res.data.items[0].id.videoId
-      //   console.log(videoURI)
-      //   iframe.src = 'https://www.youtube.com/embed/' + videoURI
-      // })
+      axios({
+        url: API_URL,
+        method: 'get',
+        params,
+      })
+      .then(function (res) {
+        console.log(res.data.items[0].id)
+        const videoURI = res.data.items[0].id.videoId
+        console.log(videoURI)
+        iframe.src = 'https://www.youtube.com/embed/' + videoURI
+      })
 
     })
   }
 
-  // window.addEventListener('load', function(event) {
-  //   console.log(event)
-  //   const videoDiv = document.querySelector('.video-container')
-  //   const iframe = document.querySelector('.embed-responsive-item')
-  //   let path = event.target.location.pathname
-  //   let moviepk = path.substring(15, path.length-1)
-  //   console.log(moviepk)
-  //   axios.get('http://127.0.0.1:8000/movies/get_movie/', {
-  //     params: {
-  //       moviepk,
-  //     }
-  //   })
-  //   .then(function (res) {
-  //     console.log(res.data)
-  //   })
-
-  // })
 </script>
 {% endblock  %}
