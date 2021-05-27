@@ -117,7 +117,7 @@
         <div class="video-container mx-0 d-flex">
           <div class="embed-responsive embed-responsive-16by9">
             {% comment %} <img style="width: 275px;" src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F05jk8%2FbtqFNhPwZ8D%2FKSyAaHOZKrXHsq56K731e1%2Fimg.png" alt=""> {% endcomment %}
-            <iframe class="embed-responsive-item" style="margin-left: 1rem;" src="" frameborder="0" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" style="margin-left: 1rem;  width: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
           </div>
           <div class="">
             <img style="margin-left: 1rem;" src="{{ drop }}" alt="">
@@ -221,7 +221,8 @@
       const query = dict.query
       console.log(query)
 
-      const API_KEY = 'AIzaSyBoRcoDXtTX17xghBnv2o4faswjfOSESBQ'
+      // const API_KEY = 'AIzaSyBoRcoDXtTX17xghBnv2o4faswjfOSESBQ' // 지민
+      // const API_KEY = 'AIzaSyDfPuDrF0vF9ojrrvvM1JbMGtPENRkl1_Q' // 채은
       const API_URL = 'https://www.googleapis.com/youtube/v3/search'
       const params = {
         key: API_KEY,
