@@ -117,7 +117,7 @@
         <div class="video-container mx-0 d-flex">
           <div class="embed-responsive embed-responsive-16by9">
             {% comment %} <img style="width: 275px;" src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F05jk8%2FbtqFNhPwZ8D%2FKSyAaHOZKrXHsq56K731e1%2Fimg.png" alt=""> {% endcomment %}
-            <iframe class="embed-responsive-item" style="margin-left: 1rem; widht: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" style="margin-left: 1rem;  width: 300px; height:169px;" src="" frameborder="0" allowfullscreen></iframe>
           </div>
           <div class="">
             <img style="margin-left: 1rem;" src="{{ drop }}" alt="">
@@ -247,7 +247,7 @@
     })
   }
 
-  window.addEventListener('load', function(event) {
+  {% comment %} window.addEventListener('load', function(event) {
     console.log(event)
     const videoDiv = document.querySelector('.video-container')
     const iframe = document.querySelector('.embed-responsive-item')
@@ -263,6 +263,6 @@
       console.log(res.data)
     })
 
-  })
+  }) {% endcomment %}
 </script>
 {% endblock  %}
