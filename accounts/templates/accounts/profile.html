@@ -93,13 +93,13 @@
               {% endif %}
             {% endfor %}
           </div>
-          <!-- {% for i in "aa" %}
+          {% comment %} {% for i in "aa" %}
             <div class="carousel-item">
               {% for movie in person.like_movies.all|slice:"4:8" %}
                 <img src="{{ movie.poster_path }}" alt="">
               {% endfor %}
             </div>
-          {% endfor %} -->
+          {% endfor %} {% endcomment %}
         </div>
         <span class="carousel-control-prev carousel-control-prev-icon me-1" style="top: 100px;" aria-hidden="true" data-bs-target="#carouselExampleControls" data-bs-slide="prev"></span>
         <span class="visually-hidden">Previous</span>
@@ -299,7 +299,7 @@
         }
       }      
     })
-}
+  }
     
     
     
@@ -330,9 +330,200 @@
     })
   })
   
-  </script>
-  {% bootstrap_javascript %}
+</script>
+ {% bootstrap_javascript %}
 </body>
 
 </html>
   
+
+{% comment %}   
+  // 팔레트 색깔 구현
+  // 해당 장르의 영화 개수의 비율로 컬러 투명도 조절 + carousel
+  window.onload = function (event) {
+    console.log(event)
+    let path = event.target.location.pathname
+    let username = path.substring(10, path.length-1)
+    console.log(username)
+    axios.get('http://127.0.0.1:8000/accounts/get_movies/', {
+      params: {
+        username,
+      }
+    })
+    .then(function (res) {
+      const movies = res.data
+      const count = res.data.length
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 1
+      }).length >= 1) {
+        const redCount = movies.filter(function (movie) {
+          return movie.custom_genre === 1
+        }).length / count + 0.2
+        console.log(redCount)
+        const red = document.querySelector('#red')
+        red.style.opacity = 0.1 + redCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 2
+      }).length >= 1) {
+        const orangeCount = movies.filter(function (movie) {
+          return movie.custom_genre === 2
+        }).length / count + 0.2
+        console.log(orangeCount)
+        const orange = document.querySelector('#orange')
+        orange.style.opacity = 0.1 + orangeCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 3
+      }).length >= 1) {
+        const yellowCount = movies.filter(function (movie) {
+          return movie.custom_genre === 3
+        }).length / count + 0.2
+        console.log(yellowCount)
+        const yellow = document.querySelector('#yellow')
+        yellow.style.opacity = 0.1 + yellowCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 4
+      }).length >= 1) {
+        const yellowgreenCount = movies.filter(function (movie) {
+          return movie.custom_genre === 4
+        }).length / count + 0.2
+        console.log(yellowgreenCount)
+        const yellowgreen = document.querySelector('#yellowgreen')
+        yellowgreen.style.opacity = 0.1 + yellowgreenCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 5
+      }).length >= 1) {
+        const greenCount = movies.filter(function (movie) {
+          return movie.custom_genre === 5
+        }).length / count + 0.2
+        console.log(greenCount)
+        const green = document.querySelector('#green')
+        green.style.opacity = 0.07 + greenCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 6
+      }).length >= 1) {
+        const bluegreenCount = movies.filter(function (movie) {
+          return movie.custom_genre === 6
+        }).length / count + 0.2
+        console.log(bluegreenCount)
+        const bluegreen= document.querySelector('#bluegreen')
+        bluegreen.style.opacity = 0.07 + bluegreenCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 7
+      }).length >= 1) {
+        const blueCount = movies.filter(function (movie) {
+          return movie.custom_genre === 7
+        }).length / count + 0.2
+        console.log(blueCount)
+        const blue = document.querySelector('#blue')
+        blue.style.opacity = 0.07 + blueCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 8
+      }).length >= 1) {
+        const darkblueCount = movies.filter(function (movie) {
+          return movie.custom_genre === 8
+        }).length / count + 0.2
+        console.log(darkblueCount)
+        const darkblue = document.querySelector('#darkblue')
+        darkblue.style.opacity = 0.07 + darkblueCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 9
+      }).length >= 1) {
+        const purpleCount = movies.filter(function (movie) {
+          return movie.custom_genre === 9
+        }).length / count + 0.2
+        console.log(purpleCount)
+        const purple = document.querySelector('#purple')
+        purple.style.opacity = 0.07 + purpleCount
+      }
+
+      if (movies.filter(function (movie) {
+        return movie.custom_genre === 10
+      }).length >= 1) {
+        const redpurpleCount = movies.filter(function (movie) {
+          return movie.custom_genre === 10
+        }).length / count + 0.2
+        console.log(redpurpleCount)
+        const redpurple = document.querySelector('#redpurple')
+        redpurple.style.opacity = 0.07 + redpurpleCount
+      }
+
+      const movieCaro = _.slice(res.data, 4)
+      const newcount = movieCaro.length
+      const loop = count / 4
+      const innerloop = _.range(4)
+
+      for (i = 1; i <= loop; i++) {
+        const caroDiv = document.createElement('div')
+        caroDiv.classList.add('carousel-item')
+        const parent = document.querySelector('.carousel-inner')
+        parent.appendChild(caroDiv)
+        for (j of innerloop) {
+          const caroDiv = document.querySelectorAll('.carousel-inner > div')[i]
+          const showMovie = document.createElement('img')
+          const idx = (4 * i) + j 
+          if (idx <= count) {
+            console.log(idx)
+            console.log(res.data[idx])
+            console.log(res.data[idx].poster_path)
+            showMovie.src = res.data[idx].poster_path
+            caroDiv.appendChild(showMovie)
+          } else {
+            console.log('좋아하는 영화 끝')
+          }
+        }
+      }      
+    })
+}
+    
+    
+    
+  // 팔로우 구현
+  const form = document.querySelector('#follow-form')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const userId = event.target.dataset.userId
+    axios.post(`http://127.0.0.1:8000/accounts/follow/${userId}/`, {}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then(function (response) {
+      const { followed, followersCount, followingsCount } = response.data
+      const followStatus = document.querySelector('#follow-count')
+      const followBtn = document.querySelector('#follow-form > button')
+      
+      followStatus.innerText = `followings : ${followingsCount} / followers : ${followersCount}`
+      followBtn.innerText = followed ? 'unfollow' : 'follow'
+    })
+    .catch(function (error) {
+      if (error.response.status === 401) {
+        window.location.href = 'http://127.0.0.1:8000/accounts/login/'
+      }
+    })
+  })
+   {% endcomment %}
+  {% comment %} </script>
+  {% bootstrap_javascript %}
+</body>
+
+</html>
+   {% endcomment %}
