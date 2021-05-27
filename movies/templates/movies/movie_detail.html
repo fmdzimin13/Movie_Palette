@@ -247,22 +247,22 @@
     })
   }
 
-  {% comment %} window.addEventListener('load', function(event) {
-    console.log(event)
-    const videoDiv = document.querySelector('.video-container')
-    const iframe = document.querySelector('.embed-responsive-item')
-    let path = event.target.location.pathname
-    let moviepk = path.substring(15, path.length-1)
-    console.log(moviepk)
-    axios.get('http://127.0.0.1:8000/movies/get_movie/', {
-      params: {
-        moviepk,
-      }
-    })
-    .then(function (res) {
-      console.log(res.data)
-    })
+  // window.addEventListener('load', function(event) {
+  //   console.log(event)
+  //   const videoDiv = document.querySelector('.video-container')
+  //   const iframe = document.querySelector('.embed-responsive-item')
+  //   let path = event.target.location.pathname
+  //   let moviepk = path.substring(15, path.length-1)
+  //   console.log(moviepk)
+  //   axios.get('http://127.0.0.1:8000/movies/get_movie/', {
+  //     params: {
+  //       moviepk,
+  //     }
+  //   })
+  //   .then(function (res) {
+  //     console.log(res.data)
+  //   })
 
-  }) {% endcomment %}
+  // })
 </script>
 {% endblock  %}
