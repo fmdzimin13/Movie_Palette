@@ -373,7 +373,7 @@ const data = new FormData()
 
  Profile 페이지에 들어가면 확인할 수 있는 나만의 영화 팔레트
 
-  ![(null)](README.assets/cif00001.png) 
+  ![movie-palette](README.assets/cif00001-1623691172955.png)
 
 - DB에 axios를 사용해 사용자가 좋아요한 영화에 대한 정보 요청
 - 응답받은 정보를 기반으로 팔레트의 투명도 계산 진행 (장르별 비율에 따라 달라지는 투명도)
